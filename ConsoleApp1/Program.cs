@@ -12,8 +12,10 @@ namespace Interfaces
         static void Main(string[] args)
         {
             int[] numbers = new[] { 1, 2, 3, 5 };
+            // IList
+           
 
-            // List<int> standardList;
+           //  List<int> standardList;
             LinkedList<int> list = new LinkedList<int>(numbers);
 
             foreach (int item in list)
