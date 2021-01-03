@@ -12,7 +12,7 @@ namespace Interfaces
         static void Main(string[] args)
         {
             int[] numbers = new[] { 1, 2, 3, 5 };
-            // IList
+            // IList<T>
            
 
            //  List<int> standardList;
