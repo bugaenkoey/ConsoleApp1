@@ -14,11 +14,12 @@ namespace MyDelegate
             (Convert.ToDouble(v2) == 0 ? 0 : Convert.ToDouble(v1)) /
             (Convert.ToDouble(v2) == 0 ? 1 : Convert.ToDouble(v2));
 
-        /*     public static double Add(double v1, double v2) => v1 + v2;
+/*
+           public static double Add(double v1, double v2) => v1 + v2;
                public static double Subtract(double v1, double v2) => v1 - v2;
                public static double Divide(double v1, double v2) => (v2 == 0 ? 0 : v1) / (v2 == 0 ? 1 : v2);
                public static double Multiply(double v1, double v2) => v1 * v2;
-        */
+*/
 
     }
 }

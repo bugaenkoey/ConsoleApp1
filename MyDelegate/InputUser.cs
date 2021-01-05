@@ -8,80 +8,64 @@ namespace MyDelegate
 
     {
         static Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-        //   static LinkedList<decimal> Phrases = new LinkedList<decimal> { };
-        public static string StringDidital { get; set; }
-        public static string StringPhrase { get; set; }
-        public static decimal InPhrase()
+
+        private static string ValueString { get; set; }
+        private static string Value1 { get; set; }
+        private static string Value2 { get; set; }
+        public static double Primer()
         {
-            Console.WriteLine();
-            // StringPhrase = Console.ReadLine();
+            Value1 = StringDouble();
+            Func<String, double> Operation = MatemOperation();
+            Value2 = StringDouble();
+            return (double)(Operation?.Invoke(Value1, Value2));
 
-            if (decimal.TryParse(Console.ReadLine(), out decimal result))
-            {
-                Console.WriteLine(result);
-            }
-            else
-            {
-                Console.WriteLine($"Введено не число, по умолчанию присвоено {result}," +
-                    $"\n дробную часть надо отделять ( {separator} ) знаком");
-                InPhrase();
-            }
-
-
-            return result;
         }
+ 
         public static Func<String, double> MatemOperation()
         {
-            Console.WriteLine("выбрать нужную операцию подсчета (+, -, *, /)");
-           // ConsoleKeyInfo consoleKeyInfo;
+            //   Console.WriteLine("выбрать нужную операцию подсчета (+, -, *, /)");
             bool checkSelect = false;
             Func<String, double> Operation = null;
+            char chr;
             do
             {
-                  char chr = Console.ReadKey(true).KeyChar;
+                chr = Console.ReadKey(true).KeyChar;
                 switch (chr)
                 {
                     case '+':
                         {
-                            Console.WriteLine(" + ");
+                            Console.Write(" + ");
                             checkSelect = true;
-                             Operation = Calculator.Add2;
-
+                            Operation = Calculator.Add2;
                         }
                         break;
                     case '-':
                         {
-                            Console.WriteLine(" - ");
+                            Console.Write(" - ");
                             checkSelect = true;
                             Operation = Calculator.Subtract2;
-
                         }
-
                         break;
                     case '*':
-
                         {
-                            Console.WriteLine(" * ");
+                            Console.Write(" * ");
                             checkSelect = true;
                             Operation = Calculator.Multiply2;
-
                         }
-
                         break;
                     case '/':
                         {
-                            Console.WriteLine(" / ");
+                            Console.Write(" / ");
                             checkSelect = true;
-                             Operation = Calculator.Divide2;
+                            Operation = Calculator.Divide2;
 
                         }
-
                         break;
                     default:
                         break;
                 }
 
-            } while (!checkSelect);
+            } while (!checkSelect && !chr.Equals(ConsoleKey.Spacebar));// !Console.ReadKey(true).Key.Equals(ConsoleKey.Spacebar));
 
             return Operation;
         }
@@ -90,9 +74,9 @@ namespace MyDelegate
             char keypress;
             bool existSeparator = false;
             bool existMinus = false;
-            StringDidital = "";
+            ValueString = "";
             ConsoleKeyInfo consoleKeyInfo;
-            Console.WriteLine(" Введите число ");
+            //   Console.WriteLine("Введите число ");
 
             do
             {
@@ -100,47 +84,32 @@ namespace MyDelegate
                 keypress = consoleKeyInfo.KeyChar;
                 if (((int)keypress >= 48 & (int)keypress <= 58))
                 {
-                    StringDidital += keypress;
+                    ValueString += keypress;
                     Console.Write(keypress);
                 }
-                if (!existMinus && consoleKeyInfo.Key.Equals(ConsoleKey.OemMinus) && StringDidital.Length == 0)
+                if (!existMinus && consoleKeyInfo.Key.Equals(ConsoleKey.OemMinus) && ValueString.Length == 0)
                 {
-                    StringDidital += '-';
+                    ValueString += '-';
                     existMinus = true;
                     Console.Write('-');
                 }
                 if (!existSeparator
                     && (consoleKeyInfo.Key.Equals(ConsoleKey.OemComma)
                     || consoleKeyInfo.Key.Equals(ConsoleKey.OemPeriod)))
-
                 //  if (!existSeparator && (keypress.Equals(',') || keypress.Equals('.')))
                 {
-                    StringDidital += separator;
+                    ValueString += separator;
                     existSeparator = true;
                     Console.Write(separator);
                 }
-              //  Console.Write(StringDidital);
-            } while (!consoleKeyInfo.Key.Equals(ConsoleKey.Enter));//(!keypress.Equals('\r'));
-            Console.WriteLine($"Вы ввели { StringDidital}");
-            //  Console.WriteLine("\n" + StringDidital);
-            return StringDidital.Length == 0 ? "0" : StringDidital;
+            } while (!consoleKeyInfo.Key.Equals(ConsoleKey.Spacebar));
+
+            // } while (!consoleKeyInfo.Key.Equals(ConsoleKey.Enter));
+
+            //   Console.WriteLine($"\nВы ввели { ValueString}");
+            return ValueString.Length == 0 ? "0" : ValueString;
         }
 
-        /*
-                public double InDouble()
-                {
-                    if (double.TryParse(Console.ReadLine(), out double value))
-                    {
-                        return value;
-                    }
-                    else
-                    {
-                        return value = default;
-                    }
 
-
-
-                }
-        */
     }
 }

@@ -18,34 +18,38 @@ namespace MyDelegate
   * 
   */
     public delegate TResult Func<T1, TResult>(T1 arg1, T1 arg2);
+    public delegate TResult Func<TResult>();
+
     class Program
     {
         static void Main(string[] args)
         {
-            //  Char separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
-            //  Console.WriteLine(separator);
-
-            //  Console.WriteLine(DataInput.InPhrase());
-            //   Console.WriteLine( DataInput.InPhrase());
-
-            for (int i = 0; i < 5; i++)
+            //           Func<string> StringValue = InputUser.StringDouble;
+            Console.WriteLine("\nЗапишите простой пример -2 * -3");
+            do
             {
-                Func<String, double> Operation = InputUser.MatemOperation();
-                Console.WriteLine(Operation?.Invoke(InputUser.StringDouble(), InputUser.StringDouble()));
-            }
+                Console.WriteLine("пример");
+                Console.WriteLine($"\nРезультат { InputUser.Primer()}");
+                Console.WriteLine("Для выхода нажмите ESC , для продолжения любую кнопку ");
+            } while (!Console.ReadKey(true).Key.Equals(ConsoleKey.Escape));
             /*
-                        DataInput.MatemOperation();
+                        do
+                        {
+                            Func<String, double> Operation = InputUser.MatemOperation();
+                            //  Console.WriteLine(Operation?.Invoke(InputUser.StringDouble(), InputUser.StringDouble()));
+                            Console.WriteLine($" Результат {Operation?.Invoke(StringValue(), StringValue())}");
+                            Console.WriteLine("Для выхода нажмите ESC , для продолжения любую кнопку ");
+                        } while (!Console.ReadKey().Key.Equals(ConsoleKey.Escape));
+            */
+            {
+                /*
 
-                        String s = "-0.01";
-                        decimal d = Convert.ToDecimal(s);
-                        Console.WriteLine(d+3);
-            */
-            /*
-                        Console.WriteLine(Calculator.Add2(DataInput.StringDouble(), DataInput.StringDouble()));
-                        Console.WriteLine(Calculator.Subtract2(DataInput.StringDouble(), DataInput.StringDouble()));
-                        Console.WriteLine(Calculator.Multiply2(DataInput.StringDouble(), DataInput.StringDouble()));
-                        Console.WriteLine(Calculator.Divide2(DataInput.StringDouble(), DataInput.StringDouble()));
-            */
+                            Console.WriteLine(Calculator.Add2(DataInput.StringDouble(), DataInput.StringDouble()));
+                            Console.WriteLine(Calculator.Subtract2(DataInput.StringDouble(), DataInput.StringDouble()));
+                            Console.WriteLine(Calculator.Multiply2(DataInput.StringDouble(), DataInput.StringDouble()));
+                            Console.WriteLine(Calculator.Divide2(DataInput.StringDouble(), DataInput.StringDouble()));
+                */
+            }
         }
     }
 }
