@@ -24,32 +24,15 @@ namespace MyDelegate
     {
         static void Main(string[] args)
         {
-            //           Func<string> StringValue = InputUser.StringDouble;
-            Console.WriteLine("\nЗапишите простой пример -2 * -3");
             do
             {
+                Console.Clear();
+            Console.WriteLine("\nЗапишите простой пример -2 * -3");
                 Console.WriteLine("пример");
                 Console.WriteLine($"\nРезультат { InputUser.Primer()}");
                 Console.WriteLine("Для выхода нажмите ESC , для продолжения любую кнопку ");
             } while (!Console.ReadKey(true).Key.Equals(ConsoleKey.Escape));
-            /*
-                        do
-                        {
-                            Func<String, double> Operation = InputUser.MatemOperation();
-                            //  Console.WriteLine(Operation?.Invoke(InputUser.StringDouble(), InputUser.StringDouble()));
-                            Console.WriteLine($" Результат {Operation?.Invoke(StringValue(), StringValue())}");
-                            Console.WriteLine("Для выхода нажмите ESC , для продолжения любую кнопку ");
-                        } while (!Console.ReadKey().Key.Equals(ConsoleKey.Escape));
-            */
-            {
-                /*
-
-                            Console.WriteLine(Calculator.Add2(DataInput.StringDouble(), DataInput.StringDouble()));
-                            Console.WriteLine(Calculator.Subtract2(DataInput.StringDouble(), DataInput.StringDouble()));
-                            Console.WriteLine(Calculator.Multiply2(DataInput.StringDouble(), DataInput.StringDouble()));
-                            Console.WriteLine(Calculator.Divide2(DataInput.StringDouble(), DataInput.StringDouble()));
-                */
-            }
+           
         }
     }
 }

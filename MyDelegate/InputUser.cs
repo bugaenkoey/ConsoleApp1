@@ -20,10 +20,10 @@ namespace MyDelegate
             return (double)(Operation?.Invoke(Value1, Value2));
 
         }
- 
+
         public static Func<String, double> MatemOperation()
         {
-            //   Console.WriteLine("выбрать нужную операцию подсчета (+, -, *, /)");
+            Console.WriteLine("\nВыбрать нужную операцию подсчета (+, -, *, /)");
             bool checkSelect = false;
             Func<String, double> Operation = null;
             char chr;
@@ -64,9 +64,7 @@ namespace MyDelegate
                     default:
                         break;
                 }
-
-            } while (!checkSelect && !chr.Equals(ConsoleKey.Spacebar));// !Console.ReadKey(true).Key.Equals(ConsoleKey.Spacebar));
-
+            } while (!checkSelect);
             return Operation;
         }
         public static String StringDouble()
@@ -76,7 +74,7 @@ namespace MyDelegate
             bool existMinus = false;
             ValueString = "";
             ConsoleKeyInfo consoleKeyInfo;
-            //   Console.WriteLine("Введите число ");
+            Console.WriteLine("Введите число ");
 
             do
             {
@@ -102,11 +100,16 @@ namespace MyDelegate
                     existSeparator = true;
                     Console.Write(separator);
                 }
-            } while (!consoleKeyInfo.Key.Equals(ConsoleKey.Spacebar));
+                if (consoleKeyInfo.Key.Equals(ConsoleKey.Backspace) && ValueString.Length > 0)
+                {
+                    ValueString = ValueString.Remove(ValueString.Length - 1);
+                    Console.Write($"\r{ValueString} ");
 
-            // } while (!consoleKeyInfo.Key.Equals(ConsoleKey.Enter));
+                }
 
-            //   Console.WriteLine($"\nВы ввели { ValueString}");
+            } while (!consoleKeyInfo.Key.Equals(ConsoleKey.Spacebar) &&
+            !consoleKeyInfo.Key.Equals(ConsoleKey.Enter));
+
             return ValueString.Length == 0 ? "0" : ValueString;
         }
 
