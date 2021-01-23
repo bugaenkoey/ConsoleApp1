@@ -47,32 +47,36 @@ namespace HouseBuilding
         {
 
 
+            ProjectHouse projectHouse = new ProjectHouse();
+
+            projectHouse.AddPart(new Basement());
+            projectHouse.AddPart(new Wall());
+            projectHouse.AddPart(new Wall());
+            projectHouse.AddPart(new Wall());
+            projectHouse.AddPart(new Wall());
+            projectHouse.AddPart(new Door());
+            projectHouse.AddPart(new Window());
+            projectHouse.AddPart(new Window());
+            projectHouse.AddPart(new Window());
+            projectHouse.AddPart(new Window());
+            projectHouse.AddPart(new Roof());
+
             Team team = new Team(RecruitBuilder(), RecruitTeamLeaders());
 
+            team.Work(ref projectHouse);
+           // House house = new House(team.Work(ref projectHouse));
+/*
             foreach (var item in team.workers)
             {
-                Console.WriteLine(item.Work());
-               
+                Console.WriteLine(item.Work(projectHouse));
+
             }
+*/
 
-            ProjectHouse projectHome = new ProjectHouse();
-            
-            projectHome.AddPart(new Basement());
-            projectHome.AddPart(new Wall());
-            projectHome.AddPart(new Wall());
-            projectHome.AddPart(new Wall());
-            projectHome.AddPart(new Wall());
-            projectHome.AddPart(new Door());
-            projectHome.AddPart(new Window());
-            projectHome.AddPart(new Window());
-            projectHome.AddPart(new Window());
-            projectHome.AddPart(new Window());
-            projectHome.AddPart(new Roof());
+            //  House house = new House(projectHome);
 
-            House house = new House(projectHome);
-           
         }
-      
+
 
         private static List<TeamLeader> RecruitTeamLeaders()
         {

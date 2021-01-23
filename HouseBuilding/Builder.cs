@@ -24,30 +24,56 @@ namespace HouseBuilding
         public string Name { get ; set ; }
         public int Energy { get ; set ; }
 
-        public void EnergyDown()
+     /*   public int EnergyDown()
         {
-            Energy -= new Random().Next(10, 20);
+            int power = new Random().Next(10, 20);
+            Energy -= power;
+            return power;
         }
-
+*/
         public void EnergyUp()
         {
-            Energy += new Random().Next(5, 15);
+            if(Energy<100) Energy += new Random().Next(5, 15);
         }
 
-        public string Work()
+        public string Work(ref ProjectHouse projectHouse)
         {
             string str = string.Empty;
-            if (Energy >= 80 )
+            /*  if (Energy >= 80 )
+              {
+                  str = $"Work {Name} {GetType()} ";
+                 int power = EnergyDown();
+                  foreach (var item in projectHouse.listPart)
+                  {
+                      Console.WriteLine($"{this.Name}{item.Building()}");
+                      item.PercentCompleted += power;
+
+                  }
+
+              }*/
+            if (Energy >= 80)
             {
-                str = $"Work {Name} {GetType()}";
-                EnergyDown();
+                str = $"Work {Name} ";
+              //  int power = EnergyDown();
+                foreach (var item in projectHouse.listPart)
+                {
+                    if (Energy >= 80)
+                    {
+                        Energy -= item.Building();
+                    }
+                    else { break; }
+                  //  Console.WriteLine($"{this.Name}{item.Building()}");
+                  //  item.PercentCompleted += power;
+
+                }
+
             }
             else
             {
                 str = $"{Name} {GetType()} Not Work";
                 EnergyUp();
             }
-
+            Console.Write($"Energy{Energy}");
             return str; 
         }
     }

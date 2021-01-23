@@ -9,10 +9,18 @@ namespace HouseBuilding
     {
         public List<IPart> listPart = new List<IPart>();
 
+        public ProjectHouse()
+        {
+            Completed = false;
+        }
+
+        public bool Completed { get; set; }
         internal void AddPart(IPart part)
         {
             listPart.Add(part);
             Console.WriteLine($"Add {part.GetType()}");
         }
+
+        
     }
 }

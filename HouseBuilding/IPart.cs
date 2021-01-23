@@ -10,7 +10,7 @@ namespace HouseBuilding
         decimal PercentCompleted { get; set; }
        
         bool Completed { get; set; }
-        string Building();
+        int Building();
         
     }
 }

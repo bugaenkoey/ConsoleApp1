@@ -8,7 +8,7 @@ namespace HouseBuilding
     interface IEnergy
     {
         int Energy { get; set; }
-        void EnergyDown();
+      //  int EnergyDown();
         void EnergyUp();
     }
 }

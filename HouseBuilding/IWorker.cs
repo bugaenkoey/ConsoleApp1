@@ -9,7 +9,7 @@ namespace HouseBuilding
      //   int Energy { get; set; }
         string Name { get; set; }
      //   byte Energy { get; set; }
-        string Work();
+        string Work(ref ProjectHouse projectHouse);
      //   string PauseWork();
     }
 }

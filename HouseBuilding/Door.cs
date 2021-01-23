@@ -4,15 +4,8 @@ using System.Text;
 
 namespace HouseBuilding
 {
-    class Door : IPart
+    class Door : Part
     {
-        public decimal PercentCompleted { get ; set ; }
-        public bool Completed { get; set; }
-
-        public string Building()
-        {
-            return "Строим Door";
-
-        }
+       
     }
 }
