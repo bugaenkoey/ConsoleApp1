@@ -6,5 +6,13 @@ namespace HouseBuilding
 {
     class Door : IPart
     {
+        public decimal PercentCompleted { get ; set ; }
+        public bool Completed { get; set; }
+
+        public string Building()
+        {
+            return "Строим Door";
+
+        }
     }
 }

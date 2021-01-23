@@ -7,22 +7,26 @@ namespace HouseBuilding
 
     class Team
     {
-        public List<Builder> builders = new List<Builder>();
-        public List<TeamLeader> teamLeaders = new List<TeamLeader>();
+       // public List<Builder> builders = new List<Builder>();
+       // public List<TeamLeader> teamLeaders = new List<TeamLeader>();
+        public List<IWorker> workers;
 
-        public Team(Builder builders, TeamLeader teamLeaders)
+        /*   public Team(List<Builder> builders, List<TeamLeader> teamLeaders)
+           {
+
+               this.builders = builders;
+               this.teamLeaders = teamLeaders;
+           }*/
+        public Team(List<Builder> builders, List<TeamLeader> teamLeaders)
         {
-            this.builders.Add(builders);
-            this.teamLeaders.Add(teamLeaders);
-        }
+            workers = new List<IWorker>();
+            workers.AddRange(builders);
+            workers.AddRange(teamLeaders);
+            /* foreach (var item in workers)
+             {
+                 Console.WriteLine(item.Name);
+             }*/
 
-        public Team(Builder[] builders1, TeamLeader[] teamLeaders1)
-        {
-            Builders = builders1;
-            TeamLeaders = teamLeaders1;
         }
-
-        public Builder[] Builders { get; }
-        public TeamLeader[] TeamLeaders { get; }
     }
 }

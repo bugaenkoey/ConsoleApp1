@@ -6,12 +6,25 @@ namespace HouseBuilding
 {
     public class Basement : IPart
     {
-        public decimal Percent { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool Completed { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Basement()
+        {
+            PercentCompleted = 0;
+            Completed = false;
+        }
+
+        public Basement(decimal percentCompleted, bool completed)
+        {
+            PercentCompleted = percentCompleted;
+            Completed = completed;
+        }
+
+        public decimal PercentCompleted { get ; set ; }
+        public bool Completed { get ; set ; }
 
         public string Building()
         {
-            throw new NotImplementedException();
+            return "Строим Basement";
+
         }
     }
 }

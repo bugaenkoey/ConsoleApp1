@@ -41,27 +41,81 @@ o	После перерыва уровень энергии работника �
 */
 namespace HouseBuilding
 {
-    class Program
+    class Program 
     {
         static void Main(string[] args)
         {
-            //  Queue<IPart> parts = new Queue<IPart>();
-            //   parts.Enqueue(new Basement());
-           // quantity
-            int basement = 1, wall = 4, window = 4, door = 1, roof = 1;
-            ProjectCountPart projectCountPart = new ProjectCountPart(basement, wall, window, door, roof);
 
-          TeamLeader teamLeader= new TeamLeader(projectCountPart);
-          
-            TeamLeader[] teamLeaders = new TeamLeader[] { new TeamLeader(), new TeamLeader() };
-            Builder[] builders = new Builder[] { new Builder(), new Builder(), new Builder(), new Builder(), new Builder() };
-            Team team1 = new Team(builders, teamLeaders);
-            Team team = new Team(new Builder(), teamLeader);
-             team = new Team(new Builder(), new TeamLeader());
-             team = new Team(new Builder(), teamLeader);
-            House house = new House(projectCountPart);
-             house = new House(team);
 
+            Team team = new Team(RecruitBuilder(), RecruitTeamLeaders());
+
+            foreach (var item in team.workers)
+            {
+                Console.WriteLine(item.Work());
+               
+            }
+
+            ProjectHouse projectHome = new ProjectHouse();
+            
+            projectHome.AddPart(new Basement());
+            projectHome.AddPart(new Wall());
+            projectHome.AddPart(new Wall());
+            projectHome.AddPart(new Wall());
+            projectHome.AddPart(new Wall());
+            projectHome.AddPart(new Door());
+            projectHome.AddPart(new Window());
+            projectHome.AddPart(new Window());
+            projectHome.AddPart(new Window());
+            projectHome.AddPart(new Window());
+            projectHome.AddPart(new Roof());
+
+            House house = new House(projectHome);
+           
+        }
+      
+
+        private static List<TeamLeader> RecruitTeamLeaders()
+        {
+
+            List<TeamLeader> teamLeaders = new List<TeamLeader>();
+
+            Console.WriteLine("Количество TeamLeader");
+            if (int.TryParse(Console.ReadLine(), out int result))
+            {
+                for (int i = 0; i < result; i++)
+                {
+                    teamLeaders.Add(new TeamLeader());
+                }
+             //   Console.WriteLine(result);
+            }
+            else
+            {
+                Console.WriteLine($"Введено не число, по умолчанию присвоено {result}");
+            }
+
+            return teamLeaders;
+        }
+
+        private static List<Builder> RecruitBuilder()
+        {
+           
+            List<Builder> builders = new List<Builder>();
+
+            Console.WriteLine("Количество Builder");
+            if (int.TryParse(Console.ReadLine(), out int result))
+            {
+                for (int i = 0; i < result; i++)
+                {
+                    builders.Add(new Builder());
+                }
+             //   Console.WriteLine(result);
+            }
+            else
+            {
+                Console.WriteLine($"Введено не число, по умолчанию присвоено {result}");
+            }
+
+            return builders;
         }
     }
 }

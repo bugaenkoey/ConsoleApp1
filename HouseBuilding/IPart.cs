@@ -6,9 +6,11 @@ namespace HouseBuilding
 {
     public interface IPart
     {
-        int quantity { get; set; }
-        decimal Percent { get; set; }
+     
+        decimal PercentCompleted { get; set; }
+       
         bool Completed { get; set; }
         string Building();
+        
     }
 }
