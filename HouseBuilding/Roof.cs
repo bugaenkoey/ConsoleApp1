@@ -6,6 +6,6 @@ namespace HouseBuilding
 {
     class Roof : Part
     {
-     
+
     }
 }

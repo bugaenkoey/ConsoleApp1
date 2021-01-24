@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HouseBuilding
 {
-    class Part: IPart
+    class Part : IPart
     {
         public Part()
         {
@@ -12,19 +12,27 @@ namespace HouseBuilding
             Completed = false;
         }
 
-        public decimal PercentCompleted { get; set; }
+        public int PercentCompleted { get; set; }
         public bool Completed { get; set; }
 
         public int Building()
         {
             int power = 0;
+
             if (!Completed)
             {
                 power = new Random().Next(10, 20);
+
+                if (PercentCompleted + power >= 100)
+                {
+                    power = 100 - PercentCompleted;
+                    Completed = true;
+                }
+
                 PercentCompleted += power;
 
             }
-            if (PercentCompleted >= 100) Completed = true;
+            // if (PercentCompleted >= 100) Completed = true;
 
             return power;
         }

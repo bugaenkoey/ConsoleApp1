@@ -39,29 +39,20 @@ namespace HouseBuilding
                     check = false;
                 }
 
-         /*       else
-                {
-                  //  projectHouse.Completed = true;
-               //     Console.WriteLine("House #################################");
-               //     Completed(ref projectHouse);
-                   // new House(ref projectHouse);
-                    break;
-                }*/
             }
             if (check)
             {
                 projectHouse.Completed = true;
-                new House(projectHouse);
+                //  new House(projectHouse);
             }
 
-          //  return $" Work {Name} ";
             return $" .... ";
 
         }
 
         public House Completed(ref ProjectHouse projectHouse)
         {
-            return new House( projectHouse);
+            return new House(projectHouse);
         }
     }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HouseBuilding
 {
-    
+
     class ProjectHouse
     {
         public List<IPart> listPart = new List<IPart>();
@@ -21,6 +21,6 @@ namespace HouseBuilding
             Console.WriteLine($"Add {part.GetType()}");
         }
 
-        
+
     }
 }

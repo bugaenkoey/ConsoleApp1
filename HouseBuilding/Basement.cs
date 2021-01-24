@@ -4,8 +4,9 @@ using System.Text;
 
 namespace HouseBuilding
 {
-     class Basement : Part
+    class Basement : Part
     {
 
     }
+    
 }

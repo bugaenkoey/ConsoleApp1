@@ -6,10 +6,7 @@ namespace HouseBuilding
 {
     interface IWorker
     {
-     //   int Energy { get; set; }
         string Name { get; set; }
-     //   byte Energy { get; set; }
         string Work(ref ProjectHouse projectHouse);
-     //   string PauseWork();
     }
 }

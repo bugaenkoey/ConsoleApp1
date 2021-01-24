@@ -41,7 +41,7 @@ o	После перерыва уровень энергии работника �
 */
 namespace HouseBuilding
 {
-    class Program 
+    class Program
     {
         static void Main(string[] args)
         {
@@ -63,17 +63,9 @@ namespace HouseBuilding
 
             Team team = new Team(RecruitBuilder(), RecruitTeamLeaders());
 
-            team.Work(ref projectHouse);
-           // House house = new House(team.Work(ref projectHouse));
-/*
-            foreach (var item in team.workers)
-            {
-                Console.WriteLine(item.Work(projectHouse));
+            //  team.Work(ref projectHouse);
+            House house = new House(team.Work(ref projectHouse));
 
-            }
-*/
-
-            //  House house = new House(projectHome);
 
         }
 
@@ -90,7 +82,7 @@ namespace HouseBuilding
                 {
                     teamLeaders.Add(new TeamLeader());
                 }
-             //   Console.WriteLine(result);
+                //   Console.WriteLine(result);
             }
             else
             {
@@ -102,7 +94,7 @@ namespace HouseBuilding
 
         private static List<Builder> RecruitBuilder()
         {
-           
+
             List<Builder> builders = new List<Builder>();
 
             Console.WriteLine("Количество Builder");
@@ -112,7 +104,7 @@ namespace HouseBuilding
                 {
                     builders.Add(new Builder());
                 }
-             //   Console.WriteLine(result);
+                //   Console.WriteLine(result);
             }
             else
             {

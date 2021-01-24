@@ -19,14 +19,12 @@ namespace HouseBuilding
         }
         public ref ProjectHouse Work(ref ProjectHouse projectHouse)
         {
-           //  for (int i = 0; i < 100; i++)
             while (!projectHouse.Completed)
             {
 
 
                 foreach (var item in workers)
                 {
-                    //  Console.WriteLine(item.Name);
                     Console.WriteLine(item.Work(ref projectHouse));
                 }
             }

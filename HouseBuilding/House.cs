@@ -8,12 +8,12 @@ namespace HouseBuilding
 
         public ProjectHouse projectHouse;
 
-        public House( ProjectHouse projectHouse)
+        public House(ProjectHouse projectHouse)
         {
             this.projectHouse = projectHouse;
             Console.WriteLine("****************************Cтроительство дома завершено! ******************************");
-            
+
         }
-      
+
     }
 }
