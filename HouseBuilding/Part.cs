@@ -11,6 +11,7 @@ namespace HouseBuilding
             PercentCompleted = 0;
             Completed = false;
         }
+        public virtual OrderBuilder OrderBuilder { get ; set ; }
 
         public int PercentCompleted { get; set; }
         public bool Completed { get; set; }
@@ -36,5 +37,13 @@ namespace HouseBuilding
 
             return power;
         }
+
+        public bool CheckPreview()
+        {
+
+            return false;
+        }
+
+     
     }
 }

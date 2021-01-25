@@ -6,5 +6,8 @@ namespace HouseBuilding
 {
     class Wall : Part
     {
+   //     public OrderBuilder Order { get => OrderBuilder.Wall; }
+        public override OrderBuilder OrderBuilder  => OrderBuilder.Wall; 
+
     }
 }

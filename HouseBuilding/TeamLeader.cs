@@ -7,7 +7,7 @@ namespace HouseBuilding
     class TeamLeader : IWorker
     {
         private static int id;
-        public TeamLeader() : this("TeamLeader")
+        public TeamLeader() : this("Бригадир")
         {
         }
 
@@ -23,19 +23,19 @@ namespace HouseBuilding
 
         public string Work(ref ProjectHouse projectHouse)
         {
-            Console.WriteLine($" Work {Name} ");
+            Console.WriteLine($"Работает {Name} ");
             bool check = true;
 
             foreach (var item in projectHouse.listPart)
             {
-                Console.WriteLine($" {item.GetType()} PercentCompleted {item.PercentCompleted} ");
                 if (item.Completed)
                 {
-                    Console.WriteLine($"{item.GetType()}++++++++++++++++++++++GOTOVO");
+                    Console.WriteLine($"{item.OrderBuilder}\tСтроительство завершено ГОТОВО!!!");
 
                 }
                 else
                 {
+                Console.WriteLine($"{item.OrderBuilder}\tОбъект готов на {item.PercentCompleted}%");
                     check = false;
                 }
 

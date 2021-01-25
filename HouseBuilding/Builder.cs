@@ -30,7 +30,9 @@ namespace HouseBuilding
             if (Energy < 100) Energy += new Random().Next(5, 15);
         }
 
-        public string Work(ref ProjectHouse projectHouse)
+
+        /*
+                 public string Work(ref ProjectHouse projectHouse)
         {
             string str = string.Empty;
 
@@ -60,5 +62,65 @@ namespace HouseBuilding
             }
             return str;
         }
+        */
+
+        public string Work(ref ProjectHouse projectHouse)
+        {
+            string str = string.Empty;
+            OrderBuilder orderBuilder;
+            bool previewOrderComplead;
+            if (Energy >= 80)
+            {
+
+
+                foreach (var item in projectHouse.listPart)
+                {
+
+                    //+++++++++++++++++++++++++
+                    
+                    orderBuilder = item.OrderBuilder;
+                    previewOrderComplead = true;
+
+                    foreach (var itemCheck in projectHouse.listPart)
+                    {
+                        if (itemCheck.OrderBuilder == (orderBuilder - 1) && itemCheck.Completed == false)
+                        {
+                            previewOrderComplead = false;
+                        }
+                    }
+
+                    if (!previewOrderComplead)
+                    {
+
+                        Console.WriteLine($"{Name} Невозможно построить {item.OrderBuilder} Пред идущий объект {item.OrderBuilder - 1} не построен ");
+                        continue;
+                    }
+
+                    //--------------------------
+                    if (Energy >= 80)
+                    {
+                        int power = item.Building();
+                        str = $"{Name} Энергии {Energy}. На строительство объекта {item.OrderBuilder} потрачено {power}% энергии.";
+                        Energy -= power;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                str = $"{Name} Мало энергии - {Energy}. Не работает, отдыхает.";
+                EnergyUp();
+            }
+            return str;
+        }
+        public bool CheckPreview()
+        {
+
+            return false;
+        }
+
     }
 }

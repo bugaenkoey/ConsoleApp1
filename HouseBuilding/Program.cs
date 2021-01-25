@@ -55,11 +55,11 @@ namespace HouseBuilding
             projectHouse.AddPart(new Wall());
             projectHouse.AddPart(new Wall());
             projectHouse.AddPart(new Door());
-            projectHouse.AddPart(new Window());
-            projectHouse.AddPart(new Window());
-            projectHouse.AddPart(new Window());
-            projectHouse.AddPart(new Window());
             projectHouse.AddPart(new Roof());
+            projectHouse.AddPart(new Window());
+            projectHouse.AddPart(new Window());
+            projectHouse.AddPart(new Window());
+            projectHouse.AddPart(new Window());
 
             Team team = new Team(RecruitBuilder(), RecruitTeamLeaders());
 
