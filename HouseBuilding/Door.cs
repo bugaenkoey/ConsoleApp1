@@ -6,7 +6,6 @@ namespace HouseBuilding
 {
     class Door : Part
     {
-     //   public OrderBuilder Order { get => OrderBuilder.Door; }
-        public override OrderBuilder OrderBuilder  => OrderBuilder.Door; 
+        public override OrderBuilder OrderBuilder => OrderBuilder.Door;
     }
 }

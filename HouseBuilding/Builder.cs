@@ -31,39 +31,6 @@ namespace HouseBuilding
         }
 
 
-        /*
-                 public string Work(ref ProjectHouse projectHouse)
-        {
-            string str = string.Empty;
-
-            if (Energy >= 80)
-            {
-
-
-                foreach (var item in projectHouse.listPart)
-                {
-                    if (Energy >= 80)
-                    {
-                        int power = item.Building();
-                        str = $" {Name} Energy {Energy} {item.GetType()} + {power} Work +++";
-                        Energy -= power;
-                    }
-                    else
-                    {
-
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                str = $"{Name} Energy Low {Energy}  --- Not Work";
-                EnergyUp();
-            }
-            return str;
-        }
-        */
-
         public string Work(ref ProjectHouse projectHouse)
         {
             string str = string.Empty;
@@ -116,11 +83,11 @@ namespace HouseBuilding
             }
             return str;
         }
-        public bool CheckPreview()
+/*        public bool CheckPreview()
         {
 
             return false;
         }
-
+*/
     }
 }
