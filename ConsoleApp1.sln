@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "home", "home", "{96008B65-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseBuilding", "HouseBuilding\HouseBuilding.csproj", "{178795D9-E57C-438B-8EC3-DB29470DCA0C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serialization", "{156B446F-184E-4643-A86C-1185D08EAA22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySerialization", "MySerialization\MySerialization.csproj", "{E6671307-0286-44EC-AD49-3788ED6CD1BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,10 @@ Global
 		{178795D9-E57C-438B-8EC3-DB29470DCA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{178795D9-E57C-438B-8EC3-DB29470DCA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{178795D9-E57C-438B-8EC3-DB29470DCA0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6671307-0286-44EC-AD49-3788ED6CD1BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6671307-0286-44EC-AD49-3788ED6CD1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6671307-0286-44EC-AD49-3788ED6CD1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6671307-0286-44EC-AD49-3788ED6CD1BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +55,7 @@ Global
 		{D78E9041-8A99-4C9E-B38F-B1A9B6A7DF13} = {26B31D26-21A0-40A5-A2A2-04723D5C1652}
 		{9BD39BF4-F386-4535-9D37-1DCEDFFEDA67} = {398DD8C9-47EF-4B05-A1DC-D7633D83BAD7}
 		{178795D9-E57C-438B-8EC3-DB29470DCA0C} = {96008B65-66CD-41D7-9A6C-9C4A8AA730B8}
+		{E6671307-0286-44EC-AD49-3788ED6CD1BE} = {156B446F-184E-4643-A86C-1185D08EAA22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F67A0874-D98C-4A36-91B8-B9717C7A0F0E}
