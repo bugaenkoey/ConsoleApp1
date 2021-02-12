@@ -65,63 +65,19 @@ namespace System.Collections
              *
              **/
 
-            int[] numbers = new [] { 1, 2, 3 };
-            //IEnumerable xEnumerable = numbers.
-            // Console.WriteLine(xEnumerable.ToString());
- /*           IEnumerable
-            IEnumerator enumeratorNumbers = numbers.GetEnumerator();
-            while (enumeratorNumbers.MoveNext())
-            {
-                Console.WriteLine(enumeratorNumbers.Current);
-            }
-*/
+            MyList<int> myList = new MyList<int>();
+            myList.Add(11);
+            myList.Add(22);
+            myList.Add(33);
+            myList.Add(44);
 
-            List<int> myList = new List<int>() { 1, 6, 0 };
-            myList.Add(8);
-            myList.Add(7);
-            //  myList.Clear();
-            myList.Add(9);
-            myList.Add(5);
-
-
-            //   myList = new List<int>();
-
-            myList.Add(3);
-            // myList.Clear();
-            myList.Add(2);
             foreach (var item in myList)
             {
-                Console.WriteLine($"Вывод: {item}");
-            }
-            Console.WriteLine(myList.Contains(77) ? "yes" : "no");
-
-            List<MyClass> listMyClass = new List<MyClass>(new MyClass());
-            for (int i = 0; i < 5; i++)
-            {
-
-                listMyClass.Add(new MyClass());
+                Console.WriteLine(item);
             }
 
+            Console.WriteLine();
 
-            foreach (var item in listMyClass)
-            {
-                item.Print();
-            }
         }
-        public class MyClass
-        {
-            public static int count = 0;
-            public int Namer { get; set; }
-            public MyClass()
-            {
-                count++;
-                Namer = count;
-            }
-            public void Print()
-            {
-                Console.WriteLine($"MyClass{Namer}");
-            }
-        }
-
     }
 }
