@@ -39,17 +39,22 @@ namespace Avto_Zapravka
             this.radioButtonSuma = new System.Windows.Forms.RadioButton();
             this.radioButtonKolichestvo = new System.Windows.Forms.RadioButton();
             this.groupBoxKOplate = new System.Windows.Forms.GroupBox();
+            this.labelKOplateValuta = new System.Windows.Forms.Label();
+            this.textBoxKOplate = new System.Windows.Forms.TextBox();
             this.labelValuta = new System.Windows.Forms.Label();
             this.textBoxGasPrice = new System.Windows.Forms.TextBox();
             this.labelCena = new System.Windows.Forms.Label();
             this.comboBoxBenzin = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxKOplate = new System.Windows.Forms.TextBox();
-            this.labelKOplateValuta = new System.Windows.Forms.Label();
+            this.panelCafe = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             labelBenzin = new System.Windows.Forms.Label();
             this.groupBoxZapravka.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBoxKOplate.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelBenzin
@@ -74,9 +79,9 @@ namespace Avto_Zapravka
             this.groupBoxZapravka.Controls.Add(this.labelCena);
             this.groupBoxZapravka.Controls.Add(labelBenzin);
             this.groupBoxZapravka.Controls.Add(this.comboBoxBenzin);
-            this.groupBoxZapravka.Location = new System.Drawing.Point(45, 30);
+            this.groupBoxZapravka.Location = new System.Drawing.Point(12, 12);
             this.groupBoxZapravka.Name = "groupBoxZapravka";
-            this.groupBoxZapravka.Size = new System.Drawing.Size(418, 396);
+            this.groupBoxZapravka.Size = new System.Drawing.Size(303, 341);
             this.groupBoxZapravka.TabIndex = 0;
             this.groupBoxZapravka.TabStop = false;
             this.groupBoxZapravka.Text = "Автозаправка";
@@ -84,7 +89,7 @@ namespace Avto_Zapravka
             // labelValut
             // 
             this.labelValut.AutoSize = true;
-            this.labelValut.Location = new System.Drawing.Point(324, 179);
+            this.labelValut.Location = new System.Drawing.Point(262, 183);
             this.labelValut.Name = "labelValut";
             this.labelValut.Size = new System.Drawing.Size(36, 20);
             this.labelValut.TabIndex = 10;
@@ -93,7 +98,7 @@ namespace Avto_Zapravka
             // labelLitres
             // 
             this.labelLitres.AutoSize = true;
-            this.labelLitres.Location = new System.Drawing.Point(324, 137);
+            this.labelLitres.Location = new System.Drawing.Point(262, 144);
             this.labelLitres.Name = "labelLitres";
             this.labelLitres.Size = new System.Drawing.Size(20, 20);
             this.labelLitres.TabIndex = 9;
@@ -101,17 +106,17 @@ namespace Avto_Zapravka
             // 
             // textBoxSuma
             // 
-            this.textBoxSuma.Location = new System.Drawing.Point(193, 175);
+            this.textBoxSuma.Location = new System.Drawing.Point(141, 176);
             this.textBoxSuma.Name = "textBoxSuma";
-            this.textBoxSuma.Size = new System.Drawing.Size(125, 27);
+            this.textBoxSuma.Size = new System.Drawing.Size(107, 27);
             this.textBoxSuma.TabIndex = 8;
             this.textBoxSuma.TextChanged += new System.EventHandler(this.textBoxSuma_TextChanged);
             // 
             // textBoxKolichestvo
             // 
-            this.textBoxKolichestvo.Location = new System.Drawing.Point(193, 134);
+            this.textBoxKolichestvo.Location = new System.Drawing.Point(141, 137);
             this.textBoxKolichestvo.Name = "textBoxKolichestvo";
-            this.textBoxKolichestvo.Size = new System.Drawing.Size(125, 27);
+            this.textBoxKolichestvo.Size = new System.Drawing.Size(107, 27);
             this.textBoxKolichestvo.TabIndex = 7;
             this.textBoxKolichestvo.TextChanged += new System.EventHandler(this.textBoxKolichestvo_TextChanged);
             // 
@@ -119,16 +124,16 @@ namespace Avto_Zapravka
             // 
             this.panel1.Controls.Add(this.radioButtonSuma);
             this.panel1.Controls.Add(this.radioButtonKolichestvo);
-            this.panel1.Location = new System.Drawing.Point(6, 134);
+            this.panel1.Location = new System.Drawing.Point(6, 137);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(147, 76);
+            this.panel1.Size = new System.Drawing.Size(129, 66);
             this.panel1.TabIndex = 6;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // radioButtonSuma
             // 
             this.radioButtonSuma.AutoSize = true;
-            this.radioButtonSuma.Location = new System.Drawing.Point(12, 41);
+            this.radioButtonSuma.Location = new System.Drawing.Point(6, 40);
             this.radioButtonSuma.Name = "radioButtonSuma";
             this.radioButtonSuma.Size = new System.Drawing.Size(65, 24);
             this.radioButtonSuma.TabIndex = 1;
@@ -140,7 +145,7 @@ namespace Avto_Zapravka
             // radioButtonKolichestvo
             // 
             this.radioButtonKolichestvo.AutoSize = true;
-            this.radioButtonKolichestvo.Location = new System.Drawing.Point(12, 11);
+            this.radioButtonKolichestvo.Location = new System.Drawing.Point(6, 5);
             this.radioButtonKolichestvo.Name = "radioButtonKolichestvo";
             this.radioButtonKolichestvo.Size = new System.Drawing.Size(111, 24);
             this.radioButtonKolichestvo.TabIndex = 0;
@@ -153,13 +158,31 @@ namespace Avto_Zapravka
             // 
             this.groupBoxKOplate.Controls.Add(this.labelKOplateValuta);
             this.groupBoxKOplate.Controls.Add(this.textBoxKOplate);
-            this.groupBoxKOplate.Location = new System.Drawing.Point(6, 265);
+            this.groupBoxKOplate.Location = new System.Drawing.Point(6, 209);
             this.groupBoxKOplate.Name = "groupBoxKOplate";
-            this.groupBoxKOplate.Size = new System.Drawing.Size(250, 125);
+            this.groupBoxKOplate.Size = new System.Drawing.Size(242, 125);
             this.groupBoxKOplate.TabIndex = 5;
             this.groupBoxKOplate.TabStop = false;
             this.groupBoxKOplate.Text = "К оплате";
             this.groupBoxKOplate.Enter += new System.EventHandler(this.groupBoxKOplate_Enter);
+            // 
+            // labelKOplateValuta
+            // 
+            this.labelKOplateValuta.AutoSize = true;
+            this.labelKOplateValuta.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelKOplateValuta.Location = new System.Drawing.Point(175, 82);
+            this.labelKOplateValuta.Name = "labelKOplateValuta";
+            this.labelKOplateValuta.Size = new System.Drawing.Size(65, 37);
+            this.labelKOplateValuta.TabIndex = 4;
+            this.labelKOplateValuta.Text = "грн.";
+            // 
+            // textBoxKOplate
+            // 
+            this.textBoxKOplate.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxKOplate.Location = new System.Drawing.Point(6, 58);
+            this.textBoxKOplate.Name = "textBoxKOplate";
+            this.textBoxKOplate.Size = new System.Drawing.Size(163, 61);
+            this.textBoxKOplate.TabIndex = 3;
             // 
             // labelValuta
             // 
@@ -191,7 +214,7 @@ namespace Avto_Zapravka
             this.comboBoxBenzin.FormattingEnabled = true;
             this.comboBoxBenzin.Location = new System.Drawing.Point(86, 20);
             this.comboBoxBenzin.Name = "comboBoxBenzin";
-            this.comboBoxBenzin.Size = new System.Drawing.Size(326, 28);
+            this.comboBoxBenzin.Size = new System.Drawing.Size(67, 28);
             this.comboBoxBenzin.TabIndex = 0;
             this.comboBoxBenzin.SelectedIndexChanged += new System.EventHandler(this.comboBoxBebzin_SelectedIndexChanged);
             // 
@@ -204,40 +227,64 @@ namespace Avto_Zapravka
             this.label1.TabIndex = 1;
             this.label1.Text = "label1";
             // 
-            // textBoxKOplate
+            // panelCafe
             // 
-            this.textBoxKOplate.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBoxKOplate.Location = new System.Drawing.Point(6, 58);
-            this.textBoxKOplate.Name = "textBoxKOplate";
-            this.textBoxKOplate.Size = new System.Drawing.Size(169, 61);
-            this.textBoxKOplate.TabIndex = 3;
+            this.panelCafe.Location = new System.Drawing.Point(16, 23);
+            this.panelCafe.Name = "panelCafe";
+            this.panelCafe.Size = new System.Drawing.Size(245, 298);
+            this.panelCafe.TabIndex = 8;
+            this.panelCafe.Paint += new System.Windows.Forms.PaintEventHandler(this.panelCafe_Paint);
             // 
-            // labelKOplateValuta
+            // groupBox2
             // 
-            this.labelKOplateValuta.AutoSize = true;
-            this.labelKOplateValuta.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelKOplateValuta.Location = new System.Drawing.Point(179, 82);
-            this.labelKOplateValuta.Name = "labelKOplateValuta";
-            this.labelKOplateValuta.Size = new System.Drawing.Size(65, 37);
-            this.labelKOplateValuta.TabIndex = 4;
-            this.labelKOplateValuta.Text = "грн.";
+            this.groupBox2.Controls.Add(this.panelCafe);
+            this.groupBox2.Location = new System.Drawing.Point(321, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(278, 341);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(307, 463);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 29);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(443, 409);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 20);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "label3";
             // 
             // FormBestOil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(780, 548);
+            this.ClientSize = new System.Drawing.Size(1055, 548);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxZapravka);
             this.Name = "FormBestOil";
             this.RightToLeftLayout = true;
             this.Text = "BestOil";
+            this.Load += new System.EventHandler(this.FormBestOil_Load);
             this.groupBoxZapravka.ResumeLayout(false);
             this.groupBoxZapravka.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBoxKOplate.ResumeLayout(false);
             this.groupBoxKOplate.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,6 +309,10 @@ namespace Avto_Zapravka
         private System.Windows.Forms.Label labelKOplateValuta;
         private System.Windows.Forms.TextBox textBoxKOplate;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panelCafe;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label3;
     }
 }
 

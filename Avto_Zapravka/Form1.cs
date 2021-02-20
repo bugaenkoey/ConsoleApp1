@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Avto_Zapravka
     {
         public List<GasInfo> gasInfos;
         public List<CafeInfo> cafeInfos;
+        public decimal SumaGas { get; set; }
         public FormBestOil()
         {
             InitializeComponent();
@@ -23,9 +25,10 @@ namespace Avto_Zapravka
             textBoxGasPrice.Enabled = false;
             textBoxKolichestvo.Enabled = false;
             textBoxSuma.Enabled = false;
+            SetCafeItems();
 
         }
-
+    
         public List<GasInfo> GasInfos()
         {
             return new List<GasInfo>
@@ -46,6 +49,18 @@ namespace Avto_Zapravka
                   new CafeInfo("Картопля фрі", 7.20m),
                    new CafeInfo("Кока-кола", 4.40m)
             };
+        }
+
+        public void SetCafeItems()
+        {
+            foreach (var item in cafeInfos)
+            {
+                var cafeItem = new CafeItem(item);
+                cafeItem.Dock = DockStyle.Top;
+                panelCafe.Controls.Add(cafeItem);
+
+            }
+
         }
         private void comboBoxBebzin_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -90,7 +105,9 @@ namespace Avto_Zapravka
             if (decimal.TryParse(textBoxGasPrice.Text, out decimal price)
                  && decimal.TryParse(textBoxKolichestvo.Text, out decimal quantity))
             {
-                textBoxKOplate.Text = textBoxSuma.Text = (price * quantity).ToString();
+                SumaGas = decimal.Round(price * quantity, 2);
+                // textBoxKOplate.Text = textBoxSuma.Text = decimal.Round(price * quantity, 2).ToString();
+                textBoxKOplate.Text = textBoxSuma.Text = SumaGas.ToString();
 
             }
             else textBoxKOplate.Text = string.Empty;
@@ -104,8 +121,11 @@ namespace Avto_Zapravka
             if (decimal.TryParse(textBoxGasPrice.Text, out decimal price)
                 && decimal.TryParse(textBoxSuma.Text, out decimal suma))
             {
-                textBoxKOplate.Text = textBoxKolichestvo.Text = (suma / price).ToString();
-                //   textBoxKOplate.Text = suma.ToString();
+                //  decimal.Round(suma, 2);
+                decimal quantity = decimal.Round(suma / price, 2);
+                textBoxKolichestvo.Text = quantity.ToString();
+                // textBoxKolichestvo.Text = (suma / price).ToString();
+                textBoxKOplate.Text = suma.ToString();
             }
             else textBoxKOplate.Text = string.Empty;
             //    var price = Convert.ToDecimal(textBoxGasPrice.Text);
@@ -120,6 +140,54 @@ namespace Avto_Zapravka
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormBestOil_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cafeItem1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cafeItem2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cafeItem2_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelCafe_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            decimal totalPrice = default;
+            foreach (var item in cafeInfos)
+            {
+                totalPrice += item.TotalPrice;
+            }
+            totalPrice += SumaGas;
+            //var totalPrice = cafeInfos.Sum(c => c.TotalPrice);
+            label3.Text = totalPrice.ToString(CultureInfo.InvariantCulture);
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }

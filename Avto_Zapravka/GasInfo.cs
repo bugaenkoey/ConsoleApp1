@@ -5,7 +5,7 @@
         public GasInfo(string title, decimal price)
         {
             Title = title;
-            Price = price;
+            Price = decimal.Round( price,2);
         }
 
         public string Title { get; }

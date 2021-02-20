@@ -2,13 +2,16 @@
 {
     public class CafeInfo
     {
-        public CafeInfo(string v1, decimal v2)
+        public CafeInfo(string product, decimal price)
         {
-            V1 = v1;
-            V2 = v2;
+            Product = product;
+            Price = price;
+            Count = default;
         }
 
-        public string V1 { get; }
-        public decimal V2 { get; }
+        public string Product { get; }
+        public decimal Price { get; set; } 
+        public int Count { get; set; }
+        public decimal TotalPrice { get; set; } 
     }
 }
