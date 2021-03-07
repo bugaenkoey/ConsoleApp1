@@ -12,6 +12,6 @@
         public string Product { get; }
         public decimal Price { get; set; } 
         public int Count { get; set; }
-        public decimal TotalPrice { get; set; } 
+        public decimal Suma { get; set; } 
     }
 }

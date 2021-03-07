@@ -29,7 +29,9 @@ namespace Avto_Zapravka
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label labelBenzin;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBestOil));
             this.groupBoxZapravka = new System.Windows.Forms.GroupBox();
             this.labelValut = new System.Windows.Forms.Label();
             this.labelLitres = new System.Windows.Forms.Label();
@@ -47,14 +49,24 @@ namespace Avto_Zapravka
             this.comboBoxBenzin = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelCafe = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Cafe = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBoxCafeKOplate = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxCafeKOplate = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             labelBenzin = new System.Windows.Forms.Label();
             this.groupBoxZapravka.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBoxKOplate.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.Cafe.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBoxCafeKOplate.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelBenzin
@@ -89,7 +101,7 @@ namespace Avto_Zapravka
             // labelValut
             // 
             this.labelValut.AutoSize = true;
-            this.labelValut.Location = new System.Drawing.Point(262, 183);
+            this.labelValut.Location = new System.Drawing.Point(252, 140);
             this.labelValut.Name = "labelValut";
             this.labelValut.Size = new System.Drawing.Size(36, 20);
             this.labelValut.TabIndex = 10;
@@ -98,7 +110,7 @@ namespace Avto_Zapravka
             // labelLitres
             // 
             this.labelLitres.AutoSize = true;
-            this.labelLitres.Location = new System.Drawing.Point(262, 144);
+            this.labelLitres.Location = new System.Drawing.Point(252, 105);
             this.labelLitres.Name = "labelLitres";
             this.labelLitres.Size = new System.Drawing.Size(20, 20);
             this.labelLitres.TabIndex = 9;
@@ -106,7 +118,7 @@ namespace Avto_Zapravka
             // 
             // textBoxSuma
             // 
-            this.textBoxSuma.Location = new System.Drawing.Point(141, 176);
+            this.textBoxSuma.Location = new System.Drawing.Point(139, 137);
             this.textBoxSuma.Name = "textBoxSuma";
             this.textBoxSuma.Size = new System.Drawing.Size(107, 27);
             this.textBoxSuma.TabIndex = 8;
@@ -114,7 +126,7 @@ namespace Avto_Zapravka
             // 
             // textBoxKolichestvo
             // 
-            this.textBoxKolichestvo.Location = new System.Drawing.Point(141, 137);
+            this.textBoxKolichestvo.Location = new System.Drawing.Point(139, 102);
             this.textBoxKolichestvo.Name = "textBoxKolichestvo";
             this.textBoxKolichestvo.Size = new System.Drawing.Size(107, 27);
             this.textBoxKolichestvo.TabIndex = 7;
@@ -124,7 +136,7 @@ namespace Avto_Zapravka
             // 
             this.panel1.Controls.Add(this.radioButtonSuma);
             this.panel1.Controls.Add(this.radioButtonKolichestvo);
-            this.panel1.Location = new System.Drawing.Point(6, 137);
+            this.panel1.Location = new System.Drawing.Point(6, 98);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(129, 66);
             this.panel1.TabIndex = 6;
@@ -158,7 +170,7 @@ namespace Avto_Zapravka
             // 
             this.groupBoxKOplate.Controls.Add(this.labelKOplateValuta);
             this.groupBoxKOplate.Controls.Add(this.textBoxKOplate);
-            this.groupBoxKOplate.Location = new System.Drawing.Point(6, 209);
+            this.groupBoxKOplate.Location = new System.Drawing.Point(6, 196);
             this.groupBoxKOplate.Name = "groupBoxKOplate";
             this.groupBoxKOplate.Size = new System.Drawing.Size(242, 125);
             this.groupBoxKOplate.TabIndex = 5;
@@ -169,6 +181,7 @@ namespace Avto_Zapravka
             // labelKOplateValuta
             // 
             this.labelKOplateValuta.AutoSize = true;
+            this.labelKOplateValuta.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelKOplateValuta.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelKOplateValuta.Location = new System.Drawing.Point(175, 82);
             this.labelKOplateValuta.Name = "labelKOplateValuta";
@@ -178,6 +191,7 @@ namespace Avto_Zapravka
             // 
             // textBoxKOplate
             // 
+            this.textBoxKOplate.Enabled = false;
             this.textBoxKOplate.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBoxKOplate.Location = new System.Drawing.Point(6, 58);
             this.textBoxKOplate.Name = "textBoxKOplate";
@@ -235,43 +249,116 @@ namespace Avto_Zapravka
             this.panelCafe.TabIndex = 8;
             this.panelCafe.Paint += new System.Windows.Forms.PaintEventHandler(this.panelCafe_Paint);
             // 
-            // groupBox2
+            // Cafe
             // 
-            this.groupBox2.Controls.Add(this.panelCafe);
-            this.groupBox2.Location = new System.Drawing.Point(321, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(278, 341);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.Cafe.Controls.Add(this.panelCafe);
+            this.Cafe.Location = new System.Drawing.Point(321, 12);
+            this.Cafe.Name = "Cafe";
+            this.Cafe.Size = new System.Drawing.Size(278, 341);
+            this.Cafe.TabIndex = 9;
+            this.Cafe.TabStop = false;
+            this.Cafe.Text = "Мини кафе";
+            this.Cafe.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(307, 463);
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(141, 26);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 29);
+            this.button1.Size = new System.Drawing.Size(157, 76);
             this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
+            this.button1.Text = "Подсчитать";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(443, 409);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.Location = new System.Drawing.Point(325, 26);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 20);
+            this.label3.Size = new System.Drawing.Size(59, 72);
             this.label3.TabIndex = 11;
-            this.label3.Text = "label3";
+            this.label3.Text = "0";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.pictureBox1);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Location = new System.Drawing.Point(12, 360);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(587, 125);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ВСЕГО к оплате";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(496, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 54);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "грн";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 27);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(97, 75);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
+            // groupBoxCafeKOplate
+            // 
+            this.groupBoxCafeKOplate.Controls.Add(this.label4);
+            this.groupBoxCafeKOplate.Controls.Add(this.textBoxCafeKOplate);
+            this.groupBoxCafeKOplate.Location = new System.Drawing.Point(617, 228);
+            this.groupBoxCafeKOplate.Name = "groupBoxCafeKOplate";
+            this.groupBoxCafeKOplate.Size = new System.Drawing.Size(242, 125);
+            this.groupBoxCafeKOplate.TabIndex = 13;
+            this.groupBoxCafeKOplate.TabStop = false;
+            this.groupBoxCafeKOplate.Text = "К оплате";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(175, 82);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 37);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "грн.";
+            // 
+            // textBoxCafeKOplate
+            // 
+            this.textBoxCafeKOplate.Enabled = false;
+            this.textBoxCafeKOplate.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBoxCafeKOplate.Location = new System.Drawing.Point(6, 58);
+            this.textBoxCafeKOplate.Name = "textBoxCafeKOplate";
+            this.textBoxCafeKOplate.Size = new System.Drawing.Size(163, 61);
+            this.textBoxCafeKOplate.TabIndex = 3;
+            this.textBoxCafeKOplate.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 10000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormBestOil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1055, 548);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(1101, 548);
+            this.Controls.Add(this.groupBoxCafeKOplate);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.Cafe);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxZapravka);
             this.Name = "FormBestOil";
@@ -284,7 +371,12 @@ namespace Avto_Zapravka
             this.panel1.PerformLayout();
             this.groupBoxKOplate.ResumeLayout(false);
             this.groupBoxKOplate.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.Cafe.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBoxCafeKOplate.ResumeLayout(false);
+            this.groupBoxCafeKOplate.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,15 +396,22 @@ namespace Avto_Zapravka
         private System.Windows.Forms.TextBox textBoxGasPrice;
         private System.Windows.Forms.Label labelValut;
         private System.Windows.Forms.Label labelLitres;
-        private System.Windows.Forms.TextBox textBoxSuma;
         private System.Windows.Forms.TextBox textBoxKolichestvo;
         private System.Windows.Forms.Label labelKOplateValuta;
         private System.Windows.Forms.TextBox textBoxKOplate;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panelCafe;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox textBoxCafeKOplate;
+        private System.Windows.Forms.GroupBox groupBoxCafeKOplate;
+        private System.Windows.Forms.Panel panelCafe;
+        private System.Windows.Forms.GroupBox Cafe;
+        private System.Windows.Forms.TextBox textBoxSuma;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

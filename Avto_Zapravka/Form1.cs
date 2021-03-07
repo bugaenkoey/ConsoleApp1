@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Avto_Zapravka
@@ -16,19 +10,36 @@ namespace Avto_Zapravka
         public List<GasInfo> gasInfos;
         public List<CafeInfo> cafeInfos;
         public decimal SumaGas { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal SumaCafe { get; set; }
+        public static decimal totalPrice = default;
+
         public FormBestOil()
         {
             InitializeComponent();
             gasInfos = GasInfos();
             cafeInfos = CafeInfos();
             comboBoxBenzin.Items.AddRange(gasInfos.ToArray());
+            ClearsForm();
+        }
+        public void ClearsForm()
+        {
+            SumaGas = Quantity = SumaCafe = totalPrice = default;
             textBoxGasPrice.Enabled = false;
             textBoxKolichestvo.Enabled = false;
             textBoxSuma.Enabled = false;
+            textBoxGasPrice.Text = "";
+            textBoxKolichestvo.Text = "";
+            textBoxSuma.Text = "";
+            textBoxGasPrice.Text = "";
+            textBoxKOplate.Text = textBoxSuma.Text = SumaGas.ToString();
+
+            panelCafe.Controls.Clear();
             SetCafeItems();
+            // ReCalculateItem();
 
         }
-    
+
         public List<GasInfo> GasInfos()
         {
             return new List<GasInfo>
@@ -44,10 +55,11 @@ namespace Avto_Zapravka
         {
             return new List<CafeInfo>
             {
-                new CafeInfo("Хот-дог", 4.00m),
-                 new CafeInfo("Гамбургер", 5.40m),
-                  new CafeInfo("Картопля фрі", 7.20m),
-                   new CafeInfo("Кока-кола", 4.40m)
+                new CafeInfo("Хот-дог", 5.10m),
+                new CafeInfo("Гамбургер", 6.20m),
+                new CafeInfo("Картопля фрі", 7.30m),
+                new CafeInfo("Кока-кола", 8.40m)
+
             };
         }
 
@@ -60,7 +72,9 @@ namespace Avto_Zapravka
                 panelCafe.Controls.Add(cafeItem);
 
             }
+            groupBoxCafeKOplate.Dock = DockStyle.Bottom;
 
+            panelCafe.Controls.Add(groupBoxCafeKOplate);
         }
         private void comboBoxBebzin_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -76,14 +90,10 @@ namespace Avto_Zapravka
             {
                 textBoxKolichestvo.Enabled = true;
                 textBoxSuma.Enabled = false;
-                //  MessageBox.Show("Вы выбрали " + radioButton.Text);
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
 
         private void radioButtonSuma_CheckedChanged(object sender, EventArgs e)
         {
@@ -93,27 +103,25 @@ namespace Avto_Zapravka
             {
                 textBoxKolichestvo.Enabled = false;
                 textBoxSuma.Enabled = true;
-                //  MessageBox.Show("Вы выбрали " + radioButton.Text);
             }
         }
 
         private void textBoxKolichestvo_TextChanged(object sender, EventArgs e)
         {
-            /*int.TryParse(Console.ReadLine(), out int result )
-             */
 
             if (decimal.TryParse(textBoxGasPrice.Text, out decimal price)
                  && decimal.TryParse(textBoxKolichestvo.Text, out decimal quantity))
             {
-                SumaGas = decimal.Round(price * quantity, 2);
-                // textBoxKOplate.Text = textBoxSuma.Text = decimal.Round(price * quantity, 2).ToString();
-                textBoxKOplate.Text = textBoxSuma.Text = SumaGas.ToString();
+                SumaGas = Math.Round(price * quantity, 2);
 
+                textBoxSuma.Text = "";
+                textBoxKOplate.Text = SumaGas.ToString();
+
+                groupBoxKOplate.Text = "К оплате";
+                labelKOplateValuta.Text = "Грн.";
             }
             else textBoxKOplate.Text = string.Empty;
-            //   var price = Convert.ToDecimal(textBoxGasPrice.Text);
-            //  var quantity = Convert.ToDecimal(textBoxKolichestvo.Text);
-            //  textBoxKOplate.Text = textBoxSuma.Text = (price * quantity).ToString();
+
         }
 
         private void textBoxSuma_TextChanged(object sender, EventArgs e)
@@ -121,19 +129,52 @@ namespace Avto_Zapravka
             if (decimal.TryParse(textBoxGasPrice.Text, out decimal price)
                 && decimal.TryParse(textBoxSuma.Text, out decimal suma))
             {
-                //  decimal.Round(suma, 2);
-                decimal quantity = decimal.Round(suma / price, 2);
-                textBoxKolichestvo.Text = quantity.ToString();
-                // textBoxKolichestvo.Text = (suma / price).ToString();
-                textBoxKOplate.Text = suma.ToString();
+                SumaGas = suma;
+                Quantity = Math.Round(suma / price, 2);
+
+                textBoxKolichestvo.Text = "";
+                textBoxKOplate.Text = Quantity.ToString();
+                groupBoxKOplate.Text = "Количество";
+                labelKOplateValuta.Text = "Л.";
             }
             else textBoxKOplate.Text = string.Empty;
-            //    var price = Convert.ToDecimal(textBoxGasPrice.Text);
-            //  var suma = Convert.ToDecimal(textBoxSuma.Text);
-            //  textBoxKolichestvo.Text = (suma / price).ToString();
-            //   textBoxKOplate.Text = suma.ToString();
+
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            totalPrice = 0;
+            ReCalculateCafe();
+            totalPrice += SumaCafe;
+            totalPrice += SumaGas;
+            label3.Text = totalPrice.ToString(CultureInfo.InvariantCulture);
+
+            timer1.Enabled = true;
+
+        }
+        public void ReCalculateCafe()
+        {
+            SumaCafe = CafeItem.AllSumaCafe;
+            textBoxCafeKOplate.Text = SumaCafe.ToString(CultureInfo.InvariantCulture);
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            DialogResult dialogResult = MessageBox.Show("Следующий клиент", "Обслужить следующего клиента?", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                ClearsForm();
+            }
+            if (dialogResult == DialogResult.No)
+            {
+                timer1.Enabled = true;
+            }
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
         private void groupBoxKOplate_Enter(object sender, EventArgs e)
         {
 
@@ -174,22 +215,29 @@ namespace Avto_Zapravka
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            decimal totalPrice = default;
-            foreach (var item in cafeInfos)
-            {
-                totalPrice += item.TotalPrice;
-            }
-            totalPrice += SumaGas;
-            //var totalPrice = cafeInfos.Sum(c => c.TotalPrice);
-            label3.Text = totalPrice.ToString(CultureInfo.InvariantCulture);
-
-        }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

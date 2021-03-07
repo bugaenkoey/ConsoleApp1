@@ -6,20 +6,22 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+
 namespace Avto_Zapravka
 {
     public partial class CafeItem : UserControl
     {
-        public CafeInfo Cafe_Info { get; set; }
-        public decimal CafePrice { get; set; }
-        public CafeItem()
-        {
-            InitializeComponent();
-            CafePrice = 0;
-            // Cafe_Info = new CafeInfo("hot-dog", 4.50m);
-            SetCafeItems();
-        }
-
+        public static decimal AllSumaCafe { get; set; } = default;
+        public CafeInfo Cafe_Info { get; set; } = default;
+        public decimal CafePrice { get; set; } = default;
+        /*       public CafeItem()
+               {
+                   InitializeComponent();
+                   CafePrice = 0;
+                   // Cafe_Info = new CafeInfo("hot-dog", 4.50m);
+                   SetCafeItems();
+               }
+       */
 
         public CafeItem(CafeInfo cafeInfo)
         {
@@ -27,8 +29,14 @@ namespace Avto_Zapravka
             Cafe_Info = cafeInfo;
             CafePrice = 0;
             SetCafeItems();
+           // ReCalculateItem();
 
         }
+        public void ClearsCafeItem()
+        {
+            AllSumaCafe = default;
+        }
+
         private void SetCafeItems()
         {
             textBox1.Text = Cafe_Info.Price.ToString();
@@ -45,20 +53,25 @@ namespace Avto_Zapravka
         {
             numericUpDown1.Enabled = checkBox1.Checked;
             numericUpDown1.Value = 0;
+
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            Cafe_Info.Count = (int)numericUpDown1.Value;
-            ReCalculateCafe();
-            MessageBox.Show($"suma {Cafe_Info.TotalPrice} ");
 
+            ReCalculateItem();
+            Form.ActiveForm.Text = $"All Suma Cafe {Cafe_Info.Suma} ";        
         }
-        public void ReCalculateCafe()
+        public void ReCalculateItem()
         {
-            Cafe_Info.TotalPrice = Cafe_Info.Price * Cafe_Info.Count;
-            
+            AllSumaCafe -= Cafe_Info.Suma;
+            Cafe_Info.Count = (int)numericUpDown1.Value;
+            Cafe_Info.Suma = Cafe_Info.Price * Cafe_Info.Count;
+            AllSumaCafe += Cafe_Info.Suma;
 
+           
+            Program.MyForma.ReCalculateCafe();
         }
+
     }
 }

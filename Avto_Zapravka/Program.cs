@@ -8,6 +8,7 @@ namespace Avto_Zapravka
 {
     static class Program
     {
+       public static FormBestOil MyForma = new FormBestOil();
         /*
          * Задание 8
 Постановка задачи:
@@ -51,7 +52,10 @@ ComboBox – выпадающий список с перечнем имеюще�
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormBestOil());
+            //  Application.Run(new FormBestOil());
+         //  var MyForma= new FormBestOil();
+            Application.Run(MyForma);
+
         }
     }
 }
