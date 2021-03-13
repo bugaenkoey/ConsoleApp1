@@ -8,7 +8,6 @@ namespace Avto_Zapravka
 {
     static class Program
     {
-       public static FormBestOil MyForma = new FormBestOil();
         /*
          * Задание 8
 Постановка задачи:
@@ -46,6 +45,10 @@ ComboBox – выпадающий список с перечнем имеюще�
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
+        /// 
+
+       public static FormBestOil MyForma = new FormBestOil();
+
         [STAThread]
         static void Main()
         {

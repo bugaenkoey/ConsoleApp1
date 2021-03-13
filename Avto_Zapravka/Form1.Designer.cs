@@ -51,7 +51,7 @@ namespace Avto_Zapravka
             this.panelCafe = new System.Windows.Forms.Panel();
             this.Cafe = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelTotalPrice = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -80,6 +80,7 @@ namespace Avto_Zapravka
             // 
             // groupBoxZapravka
             // 
+            this.groupBoxZapravka.BackColor = System.Drawing.SystemColors.ControlLight;
             this.groupBoxZapravka.Controls.Add(this.labelValut);
             this.groupBoxZapravka.Controls.Add(this.labelLitres);
             this.groupBoxZapravka.Controls.Add(this.textBoxSuma);
@@ -91,6 +92,7 @@ namespace Avto_Zapravka
             this.groupBoxZapravka.Controls.Add(this.labelCena);
             this.groupBoxZapravka.Controls.Add(labelBenzin);
             this.groupBoxZapravka.Controls.Add(this.comboBoxBenzin);
+            this.groupBoxZapravka.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBoxZapravka.Location = new System.Drawing.Point(12, 12);
             this.groupBoxZapravka.Name = "groupBoxZapravka";
             this.groupBoxZapravka.Size = new System.Drawing.Size(303, 341);
@@ -251,6 +253,7 @@ namespace Avto_Zapravka
             // 
             // Cafe
             // 
+            this.Cafe.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Cafe.Controls.Add(this.panelCafe);
             this.Cafe.Location = new System.Drawing.Point(321, 12);
             this.Cafe.Name = "Cafe";
@@ -271,22 +274,23 @@ namespace Avto_Zapravka
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label3
+            // labelTotalPrice
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(325, 26);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 72);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "0";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
+            this.labelTotalPrice.AutoSize = true;
+            this.labelTotalPrice.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelTotalPrice.Location = new System.Drawing.Point(325, 26);
+            this.labelTotalPrice.Name = "labelTotalPrice";
+            this.labelTotalPrice.Size = new System.Drawing.Size(59, 72);
+            this.labelTotalPrice.TabIndex = 11;
+            this.labelTotalPrice.Text = "0";
+            this.labelTotalPrice.Click += new System.EventHandler(this.label3_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.labelTotalPrice);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Location = new System.Drawing.Point(12, 360);
             this.groupBox1.Name = "groupBox1";
@@ -355,7 +359,8 @@ namespace Avto_Zapravka
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1101, 548);
+            this.BackColor = System.Drawing.SystemColors.Info;
+            this.ClientSize = new System.Drawing.Size(612, 548);
             this.Controls.Add(this.groupBoxCafeKOplate);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Cafe);
@@ -364,6 +369,7 @@ namespace Avto_Zapravka
             this.Name = "FormBestOil";
             this.RightToLeftLayout = true;
             this.Text = "BestOil";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBestOil_FormClosing);
             this.Load += new System.EventHandler(this.FormBestOil_Load);
             this.groupBoxZapravka.ResumeLayout(false);
             this.groupBoxZapravka.PerformLayout();
@@ -401,7 +407,7 @@ namespace Avto_Zapravka
         private System.Windows.Forms.TextBox textBoxKOplate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelTotalPrice;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -411,7 +417,9 @@ namespace Avto_Zapravka
         private System.Windows.Forms.Panel panelCafe;
         private System.Windows.Forms.GroupBox Cafe;
         private System.Windows.Forms.TextBox textBoxSuma;
-        private System.Windows.Forms.Timer timer1;
+       // private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Timer timer1;
+
     }
 }
 

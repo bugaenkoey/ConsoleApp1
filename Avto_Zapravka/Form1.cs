@@ -13,7 +13,7 @@ namespace Avto_Zapravka
         public decimal Quantity { get; set; }
         public decimal SumaCafe { get; set; }
         public static decimal totalPrice = default;
-
+        public decimal ZaSmenuPrice = default;
         public FormBestOil()
         {
             InitializeComponent();
@@ -33,9 +33,12 @@ namespace Avto_Zapravka
             textBoxSuma.Text = "";
             textBoxGasPrice.Text = "";
             textBoxKOplate.Text = textBoxSuma.Text = SumaGas.ToString();
+            //label3.Text = "";
+           // label3.Text = totalPrice.ToString(CultureInfo.InvariantCulture);
 
             panelCafe.Controls.Clear();
             SetCafeItems();
+            ReCalculateCafe();
             // ReCalculateItem();
 
         }
@@ -68,6 +71,7 @@ namespace Avto_Zapravka
             foreach (var item in cafeInfos)
             {
                 var cafeItem = new CafeItem(item);
+                //item.Count = default;
                 cafeItem.Dock = DockStyle.Top;
                 panelCafe.Controls.Add(cafeItem);
 
@@ -146,7 +150,7 @@ namespace Avto_Zapravka
             ReCalculateCafe();
             totalPrice += SumaCafe;
             totalPrice += SumaGas;
-            label3.Text = totalPrice.ToString(CultureInfo.InvariantCulture);
+            labelTotalPrice.Text = totalPrice.ToString(CultureInfo.InvariantCulture);
 
             timer1.Enabled = true;
 
@@ -163,12 +167,17 @@ namespace Avto_Zapravka
 
             if (dialogResult == DialogResult.Yes)
             {
+                ZaSmenuPrice += totalPrice;
                 ClearsForm();
             }
             if (dialogResult == DialogResult.No)
             {
                 timer1.Enabled = true;
             }
+        }
+        private void FormBestOil_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show($"Общая сумма выручки за данный день. { ZaSmenuPrice}", "Закончился рабочий день", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -238,6 +247,6 @@ namespace Avto_Zapravka
 
         }
 
-
+      
     }
 }

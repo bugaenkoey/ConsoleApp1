@@ -29,23 +29,29 @@ namespace Avto_Zapravka
             Cafe_Info = cafeInfo;
             CafePrice = 0;
             SetCafeItems();
-           // ReCalculateItem();
+            // ReCalculateItem();
 
         }
         public void ClearsCafeItem()
         {
+            Cafe_Info.Suma = default;
             AllSumaCafe = default;
         }
 
         private void SetCafeItems()
         {
             textBox1.Text = Cafe_Info.Price.ToString();
-            numericUpDown1.Value = Cafe_Info.Count;
+            //  numericUpDown1.Value = Cafe_Info.Count;
+            numericUpDown1.Value = Cafe_Info.Count = default;
+
             checkBox1.Text = Cafe_Info.Product;
         }
         private void CafeItem_Load(object sender, EventArgs e)
         {
             numericUpDown1.Enabled = false;
+            // ReCalculateItem();
+            //
+           // Program.MyForma.ReCalculateCafe();
 
         }
 
@@ -58,9 +64,9 @@ namespace Avto_Zapravka
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-
+            Program.MyForma.timer1.Enabled = false;
             ReCalculateItem();
-            Form.ActiveForm.Text = $"All Suma Cafe {Cafe_Info.Suma} ";        
+            Form.ActiveForm.Text = $"All Suma Cafe {Cafe_Info.Suma} ";
         }
         public void ReCalculateItem()
         {
@@ -69,7 +75,7 @@ namespace Avto_Zapravka
             Cafe_Info.Suma = Cafe_Info.Price * Cafe_Info.Count;
             AllSumaCafe += Cafe_Info.Suma;
 
-           
+
             Program.MyForma.ReCalculateCafe();
         }
 
