@@ -32,12 +32,13 @@ namespace VegetablesAndFruits
             this.labelDbConnect = new System.Windows.Forms.Label();
             this.checkBoxDbConnect = new System.Windows.Forms.CheckBox();
             this.textBoxShowSelect = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelDbConnect
             // 
             this.labelDbConnect.AutoSize = true;
-            this.labelDbConnect.Location = new System.Drawing.Point(145, 12);
+            this.labelDbConnect.Location = new System.Drawing.Point(311, 12);
             this.labelDbConnect.Name = "labelDbConnect";
             this.labelDbConnect.Size = new System.Drawing.Size(182, 20);
             this.labelDbConnect.TabIndex = 1;
@@ -57,18 +58,28 @@ namespace VegetablesAndFruits
             // textBoxShowSelect
             // 
             this.textBoxShowSelect.Enabled = false;
-            this.textBoxShowSelect.Location = new System.Drawing.Point(375, 12);
+            this.textBoxShowSelect.Location = new System.Drawing.Point(12, 90);
             this.textBoxShowSelect.Multiline = true;
             this.textBoxShowSelect.Name = "textBoxShowSelect";
             this.textBoxShowSelect.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textBoxShowSelect.Size = new System.Drawing.Size(413, 426);
+            this.textBoxShowSelect.Size = new System.Drawing.Size(776, 348);
             this.textBoxShowSelect.TabIndex = 4;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(12, 56);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(776, 28);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBoxShowSelect);
             this.Controls.Add(this.checkBoxDbConnect);
             this.Controls.Add(this.labelDbConnect);
@@ -83,6 +94,7 @@ namespace VegetablesAndFruits
         private System.Windows.Forms.Label labelDbConnect;
         private System.Windows.Forms.CheckBox checkBoxDbConnect;
         private System.Windows.Forms.TextBox textBoxShowSelect;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
