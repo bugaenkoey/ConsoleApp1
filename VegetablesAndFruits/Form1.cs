@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VegetablesAndFruits
@@ -17,25 +12,82 @@ namespace VegetablesAndFruits
     {
 
         private DbConnection dbConnection = null;
-        // public List<SelecteVF> selectesVF;
+        public SqlDataReader sqlDataReader = null;
+        public SqlCommand sqlCommand = new SqlCommand();
         public SelectVF[] selectesVF;
+        public int calLow;
+
+        public enum TypeProduct
+        {
+            Fruits,
+            Vegetable
+        }
+        public enum Color
+        {
+            Red = 1,
+            Orange,
+            Yellow,
+            Green,
+            Blue,
+            White,
+            Brown,
+            Pink,
+            Gray,
+            Black,
+            _
+        }
+
         public Form1()
         {
             InitializeComponent();
-            selectesVF = GetArraySelect();
-            
-                foreach (var item in selectesVF)
-                {
-                    comboBox1.Items.Add( item.Text);
-                } ;
+            selectesVF = GetArraySelect2();
+
+            foreach (var item in selectesVF)
+            {
+                comboBox1.Items.Add(item.Text);
+            };
             var connectionString = @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Initial Catalog=VegetablesFruits;Integrated Security=True;";
             // connectionString = @"Data xxx;";
             // dbConnection.ConnectionString = connectionString;
             dbConnection = new SqlConnection(connectionString);
-        }
 
-        private SelectVF[] GetArraySelect()
+            AddComboBoxParam1();
+           
+        }
+        public void AddComboBoxParam1()
         {
+
+            for (int i = 1; i < (int)Color._; i++)
+            {
+                comboBoxParam1.Items.Add(((Color)i).ToString());
+            }
+
+        }
+        private SelectVF[] GetArraySelect2()
+        {
+            SqlParameter parameter = new SqlParameter();
+            string from = " from Products ";
+            return new SelectVF[] {
+                new SelectVF("■ Отображение всей информации из таблицы с овощами и фруктами;", $"select * {from} "),
+                new SelectVF("■ Отображение всех названий овощей и фруктов;", $"select Name {from} "),
+                new SelectVF("■ Отображение всех цветов;", $"select Color {from} "),
+                new SelectVF("■ Показать максимальную калорийность;", $"SELECT MAX (Cal) {from} "),
+                new SelectVF("■ Показать минимальную калорийность;", $"SELECT MIN (Cal) {from} "),
+                new SelectVF("■ Показать среднюю калорийность.", $"SELECT AVG(Cal) {from} "),
+                new SelectVF("■ Показать количество овощей;", $"SELECT COUNT(Type) {from} WHERE Type = @typeV",new SqlParameter[] { new SqlParameter("@typeV", SqlDbType.Int) }),
+                new SelectVF("■ Показать количество фруктов;", $"SELECT COUNT(Type) {from} WHERE Type = @typeF",new SqlParameter[] { new SqlParameter("@typeF", SqlDbType.Int) }),
+                new SelectVF("■ Показать количество овощей и фруктов заданного цвета;", $"SELECT COUNT(Type) {from} WHERE Color = @color",new SqlParameter[] { new SqlParameter("@color", SqlDbType.Int) }),
+                new SelectVF("■ Показать количество овощей фруктов каждого цвета;", $"SELECT COUNT(DISTINCT Color) {from} "),//===== 
+                new SelectVF("■ Показать овощи и фрукты с калорийностью ниже указанной;", $"SELECT * {from} WHERE Cal < @cal1 ", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int) }),
+                new SelectVF("■ Показать овощи и фрукты с калорийностью выше указанной;", $"SELECT * {from} WHERE Cal > @cal2 AND ", new SqlParameter[] { new SqlParameter("@cal2", SqlDbType.Int) }),
+                new SelectVF("■ Показать овощи и фрукты с калорийностью в указанном диапазоне;", $"SELECT * {from} WHERE Cal BETWEEN @cal1 AND Cal2 ", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int), new SqlParameter("@cal2", SqlDbType.Int) }),
+                new SelectVF("■ Показать все овощи и фрукты, у которых цвет желтый или красный.", $"SELECT * {from} WHERE Color =  @color1 OR Color = @color2", new SqlParameter[] { new SqlParameter("@color1", SqlDbType.Int), new SqlParameter("@color2", SqlDbType.Int) })
+
+            };
+        }
+  /*      private SelectVF[] GetArraySelect()
+        {
+            SqlParameter parameter = new SqlParameter();
             string from = " from VegetablesAndFruits ";
             return new SelectVF[]  {
              new SelectVF("■ Отображение всей информации из таблицы с овощами и фруктами;",$"select * {from} "),
@@ -48,51 +100,92 @@ namespace VegetablesAndFruits
              new SelectVF("■ Показать количество фруктов;",$"SELECT COUNT(Тип) {from} WHERE Тип = 1"),
              new SelectVF("■ Показать количество овощей и фруктов заданного цвета;",$"SELECT COUNT(Тип) {from} WHERE Цвет = 'k'"),
              new SelectVF("■ Показать количество овощей фруктов каждого цвета;",$"SELECT COUNT(DISTINCT Цвет) {from} "),//===== 
-             new SelectVF("■ Показать овощи и фрукты с калорийностью ниже указанной;",$"SELECT * {from} WHERE калорийность < 150 AND Тип = 1"),
-             new SelectVF("■ Показать овощи и фрукты с калорийностью выше указанной;",$"SELECT * {from} WHERE калорийность > 150 AND Тип = 1"),
-             new SelectVF("■ Показать овощи и фрукты с калорийностью в указанном диапазоне;",$"SELECT * {from} WHERE калорийность BETWEEN 100 AND 150 AND Тип = 1"),
+             new SelectVF("■ Показать овощи и фрукты с калорийностью ниже указанной;",$"SELECT * {from} WHERE калорийность < @calLow ", new SqlParameter[]{new SqlParameter("@calLow", SqlDbType.Int) }),
+             new SelectVF("■ Показать овощи и фрукты с калорийностью выше указанной;",$"SELECT * {from} WHERE калорийность > 150 AND "),
+             new SelectVF("■ Показать овощи и фрукты с калорийностью в указанном диапазоне;",$"SELECT * {from} WHERE калорийность BETWEEN 100 AND 150 "),
              new SelectVF("■ Показать все овощи и фрукты, у которых цвет желтый или красный.",$"SELECT * {from} WHERE Цвет =  'k' OR Цвет = 'y'")
             };
+            // sqlCommand.Parameters.Add(SelectVF.ListSqlParameters);
+            //  _ = sqlCommand.Parameters.AddWithValue("@calLow", 150);
+            _ = sqlCommand.Parameters.AddWithValue("@calLow", calLow);
+            calLow = 150;
 
-        }
+        }*/
 
-    /*    private List<SelecteVF> GetListSelect()
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           //  string select = "select * from VegetablesAndFruits";
-            return new List<SelecteVF>
-           {
-             new SelecteVF("■ Отображение всей информации из таблицы с овощами и фруктами;","select * from VegetablesAndFruits"),
-             new SelecteVF("■ Отображение всех названий овощей и фруктов;",""),
-             new SelecteVF("■ Отображение всех цветов;",""),
-             new SelecteVF("■ Показать максимальную калорийность;",""),
-             new SelecteVF("■ Показать минимальную калорийность;",""),
-             new SelecteVF("■ Показать среднюю калорийность.",""),
-             new SelecteVF("■ Показать количество овощей;",""),
-             new SelecteVF("■ Показать количество фруктов;",""),
-             new SelecteVF("■ Показать количество овощей и фруктов заданного цвета;",""),
-             new SelecteVF("■ Показать количество овощей фруктов каждого цвета;",""),
-             new SelecteVF("■ Показать овощи и фрукты с калорийностью ниже указанной;",""),
-             new SelecteVF("■ Показать овощи и фрукты с калорийностью выше указанной;",""),
-             new SelecteVF("■ Показать овощи и фрукты с калорийностью в указанном диапазоне;",""),
-             new SelecteVF("■ Показать все овощи и фрукты, у которых цвет желтый или красный.","")
-            };
+            var index = comboBox1.SelectedIndex;
+            /*
+                        switch (comboBox1.SelectedIndex)
+                        {
+                            case 11:
+                                {
+                                    textBoxValue1.Visible = true;
+                                    textBoxValue1.Text = "калорийность";///////////////////////////////
+                                }
+                                break;
+                            default:
+                                textBoxValue1.Visible = false;
+                                textBoxValue1.Text = string.Empty;
+                                break;
+                        }
+            */
+            var selectSQL = selectesVF[index].Select;
+            var text = selectesVF[index].Text;
+
+            textBoxShowSelect.Text = text;
+
+            if (dbConnection.State == ConnectionState.Open)
+            {
+                //  ShowSelect(selectSQL);
+                //++++
+
+                if (selectesVF[index].Params != null)
+                {
+
+                    textBoxValue1.Visible = true;
+                    // textBoxValue1.Text = "parameter";///////////////////////////////
+
+
+                    //  ShowSelect(selectSQL, selectesVF[index].Params);
+                }
+                else
+                {
+                    textBoxValue1.Visible = false;
+                    textBoxValue1.Text = string.Empty;
+                    //  ShowSelect(selectSQL);//----------------------------
+                }
+
+
+
+                ShowSelect(selectSQL, selectesVF[index].Params);
+                //----
+            }
+            else
+            {
+                textBoxShowSelect.Text = "База данных отключена, пожалуйста подключитесь.";
+                MessageBox.Show("Нет связи с БД!", "Ошибка подключения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
 
 
         }
-*/
+
+
         private void checkBoxDbConnect_CheckedChanged(object sender, EventArgs e)
         {
+            textBoxShowSelect.Text = string.Empty;
             if (checkBoxDbConnect.Checked == true)
             {
                 try
                 {
-                    //   dbConnection = new SqlConnection(connectionString);
                     dbConnection.Open();
-                    //  checkBoxDbConnect.Checked = true;
                     labelDbConnect.Text = "Подключение! Ок";
                     MessageBox.Show("Подключение!", "Ок");
-                    ShowSelect();
-
+                    comboBox1.SelectedIndex = 0;
+                    // ShowSelect("select * from VegetablesAndFruits");
+                    InsertInDb();
                 }
                 catch
                 {
@@ -105,80 +198,94 @@ namespace VegetablesAndFruits
             {
 
                 dbConnection.Close();
-                labelDbConnect.Text = "одключение";
+                labelDbConnect.Text = "отключение";
                 textBoxShowSelect.Text = string.Empty;
             }
 
         }
-
-        private void ShowSelect()
+       
+        private void ShowSelect(string select, SqlParameter[] sqlParameters)
         {
-            dbConnection.Open();
-            //  textBoxShowSelect.Text = string.Empty;
-            SqlDataReader rdr = null;
-            SqlCommand cmd = new SqlCommand("select * from VegetablesAndFruits", (SqlConnection)dbConnection);
-            rdr = cmd.ExecuteReader();
-            textBoxShowSelect.Text = string.Empty;
+            sqlCommand = new SqlCommand(select, (SqlConnection)dbConnection);
 
-            while (rdr.Read())
+            if (sqlParameters != null)
             {
-                textBoxShowSelect.Text += (rdr[0] + " " + rdr[1] + " " + rdr[2] + " " + rdr[3] + " " + rdr[4] + "\t");
-                textBoxShowSelect.Text += "\n";
-            }
-            dbConnection.Close();
-        }
-        private void ShowSelect(string select)
-        {
-            dbConnection.Open();
-            //  textBoxShowSelect.Text = string.Empty;
-            SqlDataReader rdr = null;
-            SqlCommand cmd = new SqlCommand(select, (SqlConnection)dbConnection);
-            rdr = cmd.ExecuteReader();
-           // textBoxShowSelect.Text = string.Empty;
-
-            while (rdr.Read())
-            {
-                // textBoxShowSelect.Text += (rdr[0] + " " + rdr[1] + " " + rdr[2] + " " + rdr[3] + " " + rdr[4] + "\t");
-              //  textBoxShowSelect.Text += " FieldCount " + rdr.FieldCount;
-                for (int i = 0; i < rdr.FieldCount; i++)
+                for (int i = 0; i < sqlParameters.Length; i++)
                 {
-                    textBoxShowSelect.Text += " " + rdr[i] + " ";
+
+                   
+                    sqlCommand.Parameters.AddWithValue(sqlParameters[i].ParameterName, 1);
                 }
-              //  textBoxShowSelect.Text += " "+rdr[0]+" ";
-               // textBoxShowSelect.Text += "\n";
             }
-            dbConnection.Close();
+ 
+            sqlDataReader = sqlCommand.ExecuteReader();  //?????????????????????????
+
+            // dataGridView1.Columns.AddRange(new DataGridViewColumn[sqlDataReader.FieldCount] );
+
+
+            List<string[]> data = new List<string[]>();
+
+            while (sqlDataReader.Read())
+            {
+                data.Add(new string[5]);
+
+                data[data.Count - 1][0] = sqlDataReader[0].ToString();
+                data[data.Count - 1][1] = sqlDataReader[1].ToString();
+
+            //   var tp= (TypeProduct)sqlDataReader[2];
+
+                data[data.Count - 1][2] = ((TypeProduct)sqlDataReader[2]).ToString();
+
+                data[data.Count - 1][3] = ((Color)sqlDataReader[3]).ToString();
+                data[data.Count - 1][4] = sqlDataReader[4].ToString();
+               
+                for (int i = 0; i < sqlDataReader.FieldCount; i++)
+                {
+                    textBoxShowSelect.Text += " " + sqlDataReader[i] + " ";
+
+                }
+                textBoxShowSelect.Text += " -*- ";
+            }
+            sqlDataReader.Close();
+            foreach (string[] s in data)
+                dataGridView1.Rows.Add(s);
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        public void InsertInDb()
         {
-            var index = comboBox1.SelectedIndex;
-            var selectSQL = selectesVF[index].Select;
-            var text = selectesVF[index].Text;
-            textBoxShowSelect.Text = text;
-            ShowSelect(selectSQL);
-            /*
-             var index = comboBox1.SelectedIndex;
-             var itemText = comboBox1.GetItemText(comboBox1.SelectedItem);
-             textBoxShowSelect.Text = string.Empty;
-             textBoxShowSelect.Text = $"index {index} {itemText}";
-            */
+          //  sqlCommand = new SqlCommand(select, (SqlConnection)dbConnection);
+            string insertString = @"insert into Products (Name, Type, Color,Cal) values ('Огурец', '1','4','220')";
+            //создать объект command, инициализировав оба свойства
+            SqlCommand cmd = new SqlCommand(insertString, (SqlConnection)dbConnection);
+            //выполнить запрос, занесенный в объект command
+            cmd.ExecuteNonQuery();
+        }
 
+        private void textBoxValue1_TextChanged(object sender, EventArgs e)
+        {
+            calLow = GetParamTextBox();
 
-            //■ Отображение всей информации из таблицы с овощами и фруктами;
-            //■ Отображение всех названий овощей и фруктов;
-            //■ Отображение всех цветов;
-            //■ Показать максимальную калорийность;
-            //■ Показать минимальную калорийность;
-            //■ Показать среднюю калорийность.
-            //■ Показать количество овощей;
-            //■ Показать количество фруктов;
-            //■ Показать количество овощей и фруктов заданного цвета;
-            //■ Показать количество овощей фруктов каждого цвета;
-            //■ Показать овощи и фрукты с калорийностью ниже указанной;
-            //■ Показать овощи и фрукты с калорийностью выше указанной;
-            //■ Показать овощи и фрукты с калорийностью в указанном диапазоне;
-            //■ Показать все овощи и фрукты, у которых цвет желтый или красный.
+        }
+
+        private void textBoxValue2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        public int GetParamTextBox()
+        {
+            if (int.TryParse(textBoxValue1.Text, out int result))
+            {
+                return result;
+            }
+            else
+            {
+                return 0;
+                // textBoxValue1.Text = $"Введено не число, по умолчанию присвоено {result}";
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }
