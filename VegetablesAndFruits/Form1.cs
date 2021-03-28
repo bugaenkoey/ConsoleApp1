@@ -181,7 +181,6 @@ namespace VegetablesAndFruits
 
             sqlDataReader = sqlCommand.ExecuteReader();  //?????????????????????????
 
-            // dataGridView1.Columns.AddRange(new DataGridViewColumn[sqlDataReader.FieldCount] );
 
 
             ReadData(ref sqlDataReader);
@@ -241,146 +240,9 @@ namespace VegetablesAndFruits
                 {
                     dataGridView1.Rows.Add(s);
                 }
-                // return;
-                ///////////////////////////////////
-
-                /*  List<string> data = new List<string>();
-
-                  for (int i = 0; i < sqlDataReader.FieldCount; i++)
-                  {
-
-                      data.Add(sqlDataReader[i].ToString());
-                  }
-
-                  dataData.Add(data);*/
-
-
-
-                //////////
-                /*  data[data.Count - 1][0] = sqlDataReader[0].ToString();
-                  data[data.Count - 1][1] = sqlDataReader[1].ToString();
-
-                  //   var tp= (TypeProduct)sqlDataReader[2];
-
-                  data[data.Count - 1][2] = ((TypeProduct)sqlDataReader[2]).ToString();
-
-                  data[data.Count - 1][3] = ((ColorProduct)sqlDataReader[3]).ToString();
-                  data[data.Count - 1][4] = sqlDataReader[4].ToString();
-
-                  for (int i = 0; i < sqlDataReader.FieldCount; i++)
-                  {
-                      textBoxShowSelect.Text += " " + sqlDataReader[i] + " ";
-
-                  }
-                  textBoxShowSelect.Text += " -*- ";*/
-          //  }
-
-            //  dataGridView1 = new DataGridView();
-            //      var gCS = sqlDataReader.GetColumnSchema();
-            /*   int j = default;
-               dataGridView1.Columns.Clear();
-               int ProductTypeIndexColum = default;
-               int ColorIndexColum = default;*/
-
-            /*   foreach (var item in sqlDataReader.GetColumnSchema())
-               {
-                   // dataGridView1.Columns.Contains.text
-                   //  item.ColumnName
-                   if (item.ColumnName == "Type")
-                   {
-                       ProductTypeIndexColum = j;
-                   }
-
-                   if (item.ColumnName == "Color")
-                   {
-                       ColorIndexColum = j;
-                   }
-
-                   dataGridView1.Columns.Add(item.ColumnName, item.ColumnName);
-                   //  dataGridView1.Columns[j].Name = item.ColumnName;
-                   // dataGridView1.Columns.AddRange(item);
-                   j++;
-               }
-   */
-            /*   dataGridView1.Rows.Clear();
-               // var data_Data = dataData.ToArray();
-               //  foreach (var item in dataData.ToArray())
-               for (int ii = 0; ii < dataData.ToArray().Length; ii++)
-               {
-                   //   var data_Data_I = dataData[i].ToArray();
-
-                   for (int jj = 0; jj < dataData[ii].ToArray().Length; jj++)
-                   {
-
-                       if (int.TryParse(dataData[ii][jj], out int resultTypeProduct))
-                       {
-                           dataData[ii][jj] = ((TypeProduct)resultTypeProduct).ToString();
-                       }
-
-                       if (int.TryParse(dataData[ii][jj], out int resultColorProduct))
-                       {
-                           dataData[ii][jj] = ((ColorProduct)resultColorProduct).ToString();
-                       }
-
-                       *//*
-                                           if (*//*ProductTypeIndexColum >0 &&*//* jj == ProductTypeIndexColum)
-                                           {
-
-
-                                               int tp = int.Parse(dataData[ii][jj]);
-
-                                               dataData[ii][jj] = ((TypeProduct)tp).ToString();
-                                           }
-                                           if (*//*ColorIndexColum>0 &&*//* jj == ColorIndexColum)
-                                           {
-
-                                               int cp = int.Parse(dataData[ii][jj]);
-                                               dataData[ii][jj] = ((ColorProduct)cp).ToString();
-                                           }
-                                           //  else
-                                           {
-                                               // dataGridView1.Rows.Add(dataData[ii].ToArray());
-                                           }*//*
-                   }
-                   dataGridView1.Rows.Add(dataData[ii].ToArray());
-               }*/
-            /*  foreach (string[] s in data)
-              {
-                  dataGridView1.Rows.Add(s);
-              }*/
-
+  
         }
-        /*   private void ReadData()
-           {
-               List<string[]> data = new List<string[]>();
-               //  List<List<string[]>>dataData = new List<List<string[]>>();
-               while (sqlDataReader.Read())
-               {
-                   data.Add(new string[5]);
-
-                   data[data.Count - 1][0] = sqlDataReader[0].ToString();
-                   data[data.Count - 1][1] = sqlDataReader[1].ToString();
-
-                   //   var tp= (TypeProduct)sqlDataReader[2];
-
-                   data[data.Count - 1][2] = ((TypeProduct)sqlDataReader[2]).ToString();
-
-                   data[data.Count - 1][3] = ((ColorProduct)sqlDataReader[3]).ToString();
-                   data[data.Count - 1][4] = sqlDataReader[4].ToString();
-
-                   for (int i = 0; i < sqlDataReader.FieldCount; i++)
-                   {
-                       textBoxShowSelect.Text += " " + sqlDataReader[i] + " ";
-
-                   }
-                   textBoxShowSelect.Text += " -*- ";
-               }
-               sqlDataReader.Close();
-               foreach (string[] s in data)
-               {
-                   dataGridView1.Rows.Add(s);
-               }
-           }*/
+      
 
         public void InsertInDb()
         {
