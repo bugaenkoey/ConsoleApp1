@@ -97,8 +97,6 @@ namespace Avto_Zapravka
             }
         }
 
-
-
         private void radioButtonSuma_CheckedChanged(object sender, EventArgs e)
         {
 

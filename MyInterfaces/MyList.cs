@@ -6,19 +6,43 @@ namespace MyInterfaces
     internal class MyList<T> : IList<T>
     {
         public Node<T> Head { get; set; }
-        public int Count { get; private set; }
-        public int Index { get; private set; }
+        public int Count { get; set; }
+        //   public int Index { get; private set; }
 
         public bool IsReadOnly => false;
         public MyList()
         {
             Count = 0;
-            Index = -1;
+            //  Index = -1;
             Head = null;
         }
 
-        public T this[int index] { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        /*   public T this[int index] 
+           { 
+               get => throw new System.NotImplementedException();
+               set => throw new System.NotImplementedException();
+           }*/
+        //++++++++++++++
+        public T this[int index]
+        {
+            get
+            {
+                /*               if (index >= 0 && index < this.Count-1)
+                               {
+                                   return this[index];
+                               }
+                               // throw new("IndexOutOfRangeException"); //IndexOutOfRangeException();
+                               return default(T);
+                */
 
+                return this[index];
+            }
+            set
+            {
+                this[index] = value;
+            }
+        }
+        //----------------
 
 
         public void Add(T item)
@@ -29,12 +53,7 @@ namespace MyInterfaces
                 Head = new Node<T>(item, Head);
             }
 
-
-
             Count++;
-
-
-
         }
 
         public void Clear()
@@ -43,21 +62,53 @@ namespace MyInterfaces
             Count = 0;
         }
 
-        public bool Contains(T item)
-        {
-            throw new System.NotImplementedException();
-        }
+
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new System.NotImplementedException();
+            Node<T> currentNode = Head;
+            if (currentNode == null) return;
+
+            while (arrayIndex < array.Length && Count - arrayIndex >= 0)
+            {
+                array[arrayIndex] = currentNode.Value;
+                currentNode = currentNode.Next;
+                arrayIndex++;
+            }
+        }
+
+        public bool Contains(T value)
+        {
+            foreach (var item in this)
+            {
+                if (item.Equals(value)) return true;
+            }
+            return false;
         }
 
 
-
-        public int IndexOf(T item)
+        public int IndexOf(T value)
         {
-            throw new System.NotImplementedException();
+            if (Head == null) return -1;
+            for (int i = 0; i < this.Count - 1; i++)
+            // foreach (var item in this)
+            {
+                // var en = GetEnumerator();
+
+                var x = this[i];
+                if (this[i].Equals(value))
+                {
+                    return i;
+                }
+
+                /*              if (item.Equals(value))
+                 *              
+                              {
+
+                              }*/
+            }
+
+            return 1000000;
         }
 
         public void Insert(int index, T item)
@@ -89,7 +140,7 @@ namespace MyInterfaces
         {
             private MyList<T> myLists = null;
             private Node<T> currentNode = null;
-            private int index = -1;
+            public int index = -1;
 
             public Enumerator(MyList<T> myLists)
             {
@@ -114,7 +165,8 @@ namespace MyInterfaces
 
             public void Reset()
             {
-                throw new System.NotImplementedException();
+                currentNode = null;
+                index = -1;
             }
         }
     }

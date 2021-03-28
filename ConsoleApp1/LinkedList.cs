@@ -67,6 +67,7 @@ namespace Interfaces
         public void Clear()
         {
             Head = null;
+
         }
 
         public bool Contains(T item)

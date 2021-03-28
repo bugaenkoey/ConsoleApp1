@@ -55,10 +55,11 @@ namespace MySerialization
             var type = typeof(T);
             T obj = new T();
 
-            foreach (var item in obj)
+/*            foreach (var item in obj)
             {
 
             }
+*/
             var param = str.Split(",");
             var getPropertiesT = type.GetProperties();
             // getPropertiesT.SetValue
