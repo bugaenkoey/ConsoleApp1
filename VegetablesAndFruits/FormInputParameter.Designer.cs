@@ -70,12 +70,13 @@ namespace VegetablesAndFruits
             // 
             // buttonOK
             // 
+            this.buttonOK.BackColor = System.Drawing.Color.Chocolate;
             this.buttonOK.Location = new System.Drawing.Point(71, 78);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(167, 28);
             this.buttonOK.TabIndex = 4;
             this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // FormInputParameter

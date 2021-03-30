@@ -34,11 +34,7 @@ namespace VegetablesAndFruits
             this.checkBoxDbConnect = new System.Windows.Forms.CheckBox();
             this.textBoxShowSelect = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBoxValue2 = new System.Windows.Forms.TextBox();
-            this.textBoxValue1 = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.comboBoxParam1 = new System.Windows.Forms.ComboBox();
-            this.comboBoxParam2 = new System.Windows.Forms.ComboBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -83,24 +79,6 @@ namespace VegetablesAndFruits
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // textBoxValue2
-            // 
-            this.textBoxValue2.Location = new System.Drawing.Point(671, 9);
-            this.textBoxValue2.Name = "textBoxValue2";
-            this.textBoxValue2.Size = new System.Drawing.Size(117, 27);
-            this.textBoxValue2.TabIndex = 6;
-            this.textBoxValue2.Visible = false;
-            this.textBoxValue2.TextChanged += new System.EventHandler(this.textBoxValue2_TextChanged);
-            // 
-            // textBoxValue1
-            // 
-            this.textBoxValue1.Location = new System.Drawing.Point(548, 9);
-            this.textBoxValue1.Name = "textBoxValue1";
-            this.textBoxValue1.Size = new System.Drawing.Size(117, 27);
-            this.textBoxValue1.TabIndex = 7;
-            this.textBoxValue1.Visible = false;
-            this.textBoxValue1.TextChanged += new System.EventHandler(this.textBoxValue1_TextChanged);
-            // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -112,22 +90,6 @@ namespace VegetablesAndFruits
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // comboBoxParam1
-            // 
-            this.comboBoxParam1.FormattingEnabled = true;
-            this.comboBoxParam1.Location = new System.Drawing.Point(16, 630);
-            this.comboBoxParam1.Name = "comboBoxParam1";
-            this.comboBoxParam1.Size = new System.Drawing.Size(151, 28);
-            this.comboBoxParam1.TabIndex = 9;
-            // 
-            // comboBoxParam2
-            // 
-            this.comboBoxParam2.FormattingEnabled = true;
-            this.comboBoxParam2.Location = new System.Drawing.Point(173, 630);
-            this.comboBoxParam2.Name = "comboBoxParam2";
-            this.comboBoxParam2.Size = new System.Drawing.Size(151, 28);
-            this.comboBoxParam2.TabIndex = 10;
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -137,11 +99,7 @@ namespace VegetablesAndFruits
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(939, 670);
-            this.Controls.Add(this.comboBoxParam2);
-            this.Controls.Add(this.comboBoxParam1);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.textBoxValue1);
-            this.Controls.Add(this.textBoxValue2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBoxShowSelect);
             this.Controls.Add(this.checkBoxDbConnect);
@@ -160,13 +118,7 @@ namespace VegetablesAndFruits
         private System.Windows.Forms.CheckBox checkBoxDbConnect;
         private System.Windows.Forms.TextBox textBoxShowSelect;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBoxValue2;
-        private System.Windows.Forms.TextBox textBoxValue1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBoxParam1;
-        private System.Windows.Forms.ComboBox comboBoxParam2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

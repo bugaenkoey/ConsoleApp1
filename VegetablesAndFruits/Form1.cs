@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using Microsoft.VisualBasic;
 
 
 namespace VegetablesAndFruits
@@ -74,18 +73,10 @@ namespace VegetablesAndFruits
             // dbConnection.ConnectionString = connectionString;
             dbConnection = new SqlConnection(connectionString);
 
-            AddComboBoxParam1();
+
 
         }
-        public void AddComboBoxParam1()
-        {
 
-            for (int i = 1; i < (int)ColorProduct._; i++)
-            {
-                comboBoxParam1.Items.Add(((ColorProduct)i).ToString());
-            }
-
-        }
         private SelectVF[] GetArraySelect2()
         {
             SqlParameter parameter = new SqlParameter();
@@ -118,7 +109,7 @@ GROUP BY Color;
                 new SelectVF("■ Показать овощи и фрукты с калорийностью ниже указанной;", $"SELECT * {from} WHERE Cal < @cal1 ORDER BY Cal DESC", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int) }),
                 new SelectVF("■ Показать овощи и фрукты с калорийностью выше указанной;", $"SELECT *  {from} WHERE Cal > @cal2 ORDER BY Cal ASC", new SqlParameter[] { new SqlParameter("@cal2", SqlDbType.Int) }),
                 new SelectVF("■ Показать овощи и фрукты с калорийностью в указанном диапазоне;", $"SELECT * {from} WHERE Cal BETWEEN @cal1 AND @Cal2 ORDER BY Cal ASC ", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int), new SqlParameter("@cal2", SqlDbType.Int) }),
-                new SelectVF("■ Показать все овощи и фрукты, у которых цвет желтый или красный.", $"SELECT * {from} WHERE Color =  @color1 OR Color = @color2", new SqlParameter[] { new SqlParameter("@color1", SqlDbType.Int), new SqlParameter("@color2", SqlDbType.Int) })
+                new SelectVF("■ Показать все овощи и фрукты, у которых цвет желтый или красный.", $"SELECT * {from} WHERE Color =  @color1 OR Color = @color2 ORDER BY Color ASC", new SqlParameter[] { new SqlParameter("@color1", SqlDbType.Int), new SqlParameter("@color2", SqlDbType.Int) })
 
             };
         }
@@ -131,42 +122,27 @@ GROUP BY Color;
 
             var selectSQL = selectesVF[index].Select;
             var text = selectesVF[index].Text;
-            string resaltParm;
             textBoxShowSelect.Text = text;
 
             if (dbConnection.State == ConnectionState.Open)
             {
-                //  ShowSelect(selectSQL);
-                //++++
 
                 if (selectesVF[index].Params != null)
                 {
-                    //   string ip = Microsoft.VisualBasic.Interaction.InputBox("Введите IP", "Ввод IP", "127.0.0.1", 100, 100);
-                    //   string result = Interaction.InputBox("Введите текст:");
 
-                     DbalogForm(selectesVF[index].Params);
+                    //  DialogForm(selectesVF[index].Params);
+                    FormInputParameter FormDialog = new FormInputParameter(selectesVF[index].Params);
 
-                    comboBoxParam1.Visible = true;
-                    comboBoxParam2.Visible = true;
-                    textBoxValue1.Visible = true;
-                    // textBoxValue1.Text = "parameter";///////////////////////////////
+                    FormDialog.ShowDialog();
 
-
-                    //  ShowSelect(selectSQL, selectesVF[index].Params);
                 }
                 else
                 {
-                    comboBoxParam1.Visible = false;
-                    comboBoxParam2.Visible = false;
-                    textBoxValue1.Visible = false;
-                    textBoxValue1.Text = string.Empty;
-                    //  ShowSelect(selectSQL);//----------------------------
+
                 }
 
-
-
                 ShowSelect(selectSQL, selectesVF[index].Params);
-                //----
+
             }
             else
             {
@@ -178,19 +154,12 @@ GROUP BY Color;
 
         }
 
-        private void DbalogForm(SqlParameter[] @params)
+        private void DialogForm(SqlParameter[] @params)
         {
             FormInputParameter FormDialog = new FormInputParameter(@params);
-           
+
             FormDialog.ShowDialog();
-           // var v =  (@params[0].SqlDbType).GetType;
-           //     ( @params[0].SqlDbType.GetType)FormDialog.p1;
 
-         //   @params[0].Value = int.Parse(FormDialog.p1);
-
-            //FormDialog.p1;
-
-            //return FormDialog.p1;
         }
 
         private void checkBoxDbConnect_CheckedChanged(object sender, EventArgs e)
@@ -233,35 +202,29 @@ GROUP BY Color;
                 for (int i = 0; i < sqlParameters.Length; i++)
                 {
 
-                  //  sqlCommand.Parameters.AddWithValue(sqlParameters[i].ParameterName, 1);
+                    //  sqlCommand.Parameters.AddWithValue(sqlParameters[i].ParameterName, 1);
 
                     sqlCommand.Parameters.AddWithValue(sqlParameters[i].ParameterName, sqlParameters[i].Value);
                 }
             }
+            try
+            {
+                sqlDataReader = sqlCommand.ExecuteReader();  //?????????????????????????
+                ReadData(ref sqlDataReader);
+                sqlDataReader.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка запроса", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            sqlDataReader = sqlCommand.ExecuteReader();  //?????????????????????????
 
-
-
-            ReadData(ref sqlDataReader);
-            sqlDataReader.Close();
 
         }
 
         private void ReadData(ref SqlDataReader sqlDataReader)
         {
-            dataGridView1.Columns.Clear();
-
-            foreach (var item in sqlDataReader.GetColumnSchema())
-            {
-                dataGridView1.Columns.Add(item.ColumnName, item.ColumnName);
-            }
-
-
-
-            //  List<string[]> data = new List<string[]>();
-            List<List<string>> dataData = new List<List<string>>();
-
+            SetColumName(sqlDataReader);
 
             List<string[]> data2 = new List<string[]>();
             while (sqlDataReader.Read())
@@ -303,6 +266,15 @@ GROUP BY Color;
 
         }
 
+        private void SetColumName(SqlDataReader sqlDataReader)
+        {
+            dataGridView1.Columns.Clear();
+
+            foreach (var item in sqlDataReader.GetColumnSchema())
+            {
+                dataGridView1.Columns.Add(item.ColumnName, item.ColumnName);
+            }
+        }
 
         public void InsertInDb()
         {
@@ -314,28 +286,8 @@ GROUP BY Color;
             cmd.ExecuteNonQuery();
         }
 
-        private void textBoxValue1_TextChanged(object sender, EventArgs e)
-        {
-            calLow = GetParamTextBox();
 
-        }
 
-        private void textBoxValue2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        public int GetParamTextBox()
-        {
-            if (int.TryParse(textBoxValue1.Text, out int result))
-            {
-                return result;
-            }
-            else
-            {
-                return 0;
-                // textBoxValue1.Text = $"Введено не число, по умолчанию присвоено {result}";
-            }
-        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
