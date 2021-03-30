@@ -1,0 +1,18 @@
+﻿SET IDENTITY_INSERT [dbo].[Products] ON
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (37, N'Морква', 1, 2, 120)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (38, N'Огурец', 1, 4, 220)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (39, N'Дыня', 0, 3, 330)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (40, N'Яблоко', 0, 2, 270)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (41, N'Банан', 0, 3, 300)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (42, N'Капуста', 1, 4, 180)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (56, N'Помидор', 1, 1, 230)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (57, N'Перец', 1, 3, 240)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (59, N'Помидор', 1, 2, 250)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (60, N'Помидор', 1, 3, 260)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (61, N'Перец', 1, 1, 255)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (62, N'Перец', 1, 2, 245)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (64, N'Яблоко', 0, 1, 275)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (66, N'Яблоко', 0, 3, 265)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (67, N'Яблоко', 0, 4, 285)
+INSERT INTO [dbo].[Products] ([Id], [Name], [Type], [Color], [Cal]) VALUES (68, N'Ананас', 0, 3, 300)
+SET IDENTITY_INSERT [dbo].[Products] OFF
