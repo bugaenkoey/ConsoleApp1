@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
+
 
 namespace VegetablesAndFruits
 {
@@ -19,11 +21,30 @@ namespace VegetablesAndFruits
 
         public enum TypeProduct
         {
+            Фрукт,
+            Овощ
+
+            /*
             Fruits,
             Vegetable
+            */
         }
         public enum ColorProduct
         {
+            Красный = 1,
+            Оранжевый,
+            Желтый,
+            Зеленый,
+            Синий,
+            Белый,
+            Коричневый,
+            Розовый,
+            Серый,
+            Черный,
+            _
+
+
+            /*
             Red = 1,
             Orange,
             Yellow,
@@ -35,6 +56,8 @@ namespace VegetablesAndFruits
             Gray,
             Black,
             _
+
+            */
         }
 
         public Form1()
@@ -74,13 +97,27 @@ namespace VegetablesAndFruits
                 new SelectVF("■ Показать максимальную калорийность;", $"SELECT MAX (Cal) AS 'MaxCal' {from} "),
                 new SelectVF("■ Показать минимальную калорийность;", $"SELECT MIN (Cal) AS 'MinCal' {from} "),
                 new SelectVF("■ Показать среднюю калорийность.", $"SELECT AVG(Cal) AS 'AvgCal' {from} "),
-                new SelectVF("■ Показать количество овощей;", $"SELECT COUNT(Type) AS 'Type' {from} WHERE Type = @typeV",new SqlParameter[] { new SqlParameter("@typeV", SqlDbType.Int) }),
-                new SelectVF("■ Показать количество фруктов;", $"SELECT COUNT(Type) AS 'Type' {from} WHERE Type = @typeF",new SqlParameter[] { new SqlParameter("@typeF", SqlDbType.Int) }),
-                new SelectVF("■ Показать количество овощей и фруктов заданного цвета;", $"SELECT COUNT(Type) AS 'Type' {from} WHERE Color = @color",new SqlParameter[] { new SqlParameter("@color", SqlDbType.Int) }),
-                new SelectVF("■ Показать количество овощей фруктов каждого цвета;", $"SELECT COUNT(DISTINCT Color) AS 'Color'{from} "),//===== 
-                new SelectVF("■ Показать овощи и фрукты с калорийностью ниже указанной;", $"SELECT * {from} WHERE Cal < @cal1", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int) }),
-                new SelectVF("■ Показать овощи и фрукты с калорийностью выше указанной;", $"SELECT *  {from} WHERE Cal > @cal2", new SqlParameter[] { new SqlParameter("@cal2", SqlDbType.Int) }),
-                new SelectVF("■ Показать овощи и фрукты с калорийностью в указанном диапазоне;", $"SELECT * {from} WHERE Cal BETWEEN @cal1 AND @Cal2", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int), new SqlParameter("@cal2", SqlDbType.Int) }),
+                new SelectVF("■ Показать количество овощей;", $"SELECT COUNT(Type) AS 'овощей' {from} WHERE Type = 1"),// @typeV",new SqlParameter[] { new SqlParameter("@typeV", SqlDbType.Int) }),
+                new SelectVF("■ Показать количество фруктов;", $"SELECT COUNT(Type) AS 'фруктов' {from} WHERE Type = 0"),// @typeF",new SqlParameter[] { new SqlParameter("@typeF", SqlDbType.Int) }),
+                new SelectVF("■ Показать количество овощей и фруктов заданного цвета;", $"SELECT COUNT(Type) AS 'овощей и фруктов заданного цвета' {from} WHERE Color = @color",new SqlParameter[] { new SqlParameter("@color", SqlDbType.Int) }),
+/*
+SELECT 'Фрукт' AS [Product], Color, COUNT (Type) AS [COUNT]    
+FROM [VegetablesFruits].[dbo].[Products]
+WHERE Type = 0
+GROUP BY Color 
+UNION ALL
+SELECT 'Овощ', Color, COUNT (Type)  
+FROM [VegetablesFruits].[dbo].[Products]
+WHERE Type = 1
+GROUP BY Color;
+
+              */
+                new SelectVF("■ Показать количество овощей фруктов каждого цвета;", $"SELECT 'Фрукт' AS [Product], Color, COUNT (Type) AS [COUNT] {from} WHERE Type = 0 GROUP BY Color UNION ALL SELECT 'Овощ', Color, COUNT (Type) {from} WHERE Type = 1 GROUP BY Color; "),//===== 
+
+                //new SelectVF("■ Показать количество овощей фруктов каждого цвета;", $"SELECT COUNT(DISTINCT Color) AS 'Color'{from} "),//===== 
+                new SelectVF("■ Показать овощи и фрукты с калорийностью ниже указанной;", $"SELECT * {from} WHERE Cal < @cal1 ORDER BY Cal DESC", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int) }),
+                new SelectVF("■ Показать овощи и фрукты с калорийностью выше указанной;", $"SELECT *  {from} WHERE Cal > @cal2 ORDER BY Cal ASC", new SqlParameter[] { new SqlParameter("@cal2", SqlDbType.Int) }),
+                new SelectVF("■ Показать овощи и фрукты с калорийностью в указанном диапазоне;", $"SELECT * {from} WHERE Cal BETWEEN @cal1 AND @Cal2 ORDER BY Cal ASC ", new SqlParameter[] { new SqlParameter("@cal1", SqlDbType.Int), new SqlParameter("@cal2", SqlDbType.Int) }),
                 new SelectVF("■ Показать все овощи и фрукты, у которых цвет желтый или красный.", $"SELECT * {from} WHERE Color =  @color1 OR Color = @color2", new SqlParameter[] { new SqlParameter("@color1", SqlDbType.Int), new SqlParameter("@color2", SqlDbType.Int) })
 
             };
@@ -94,7 +131,7 @@ namespace VegetablesAndFruits
 
             var selectSQL = selectesVF[index].Select;
             var text = selectesVF[index].Text;
-
+            string resaltParm;
             textBoxShowSelect.Text = text;
 
             if (dbConnection.State == ConnectionState.Open)
@@ -104,7 +141,13 @@ namespace VegetablesAndFruits
 
                 if (selectesVF[index].Params != null)
                 {
+                    //   string ip = Microsoft.VisualBasic.Interaction.InputBox("Введите IP", "Ввод IP", "127.0.0.1", 100, 100);
+                    //   string result = Interaction.InputBox("Введите текст:");
 
+                     DbalogForm(selectesVF[index].Params);
+
+                    comboBoxParam1.Visible = true;
+                    comboBoxParam2.Visible = true;
                     textBoxValue1.Visible = true;
                     // textBoxValue1.Text = "parameter";///////////////////////////////
 
@@ -113,6 +156,8 @@ namespace VegetablesAndFruits
                 }
                 else
                 {
+                    comboBoxParam1.Visible = false;
+                    comboBoxParam2.Visible = false;
                     textBoxValue1.Visible = false;
                     textBoxValue1.Text = string.Empty;
                     //  ShowSelect(selectSQL);//----------------------------
@@ -133,6 +178,20 @@ namespace VegetablesAndFruits
 
         }
 
+        private void DbalogForm(SqlParameter[] @params)
+        {
+            FormInputParameter FormDialog = new FormInputParameter(@params);
+           
+            FormDialog.ShowDialog();
+           // var v =  (@params[0].SqlDbType).GetType;
+           //     ( @params[0].SqlDbType.GetType)FormDialog.p1;
+
+         //   @params[0].Value = int.Parse(FormDialog.p1);
+
+            //FormDialog.p1;
+
+            //return FormDialog.p1;
+        }
 
         private void checkBoxDbConnect_CheckedChanged(object sender, EventArgs e)
         {
@@ -174,8 +233,9 @@ namespace VegetablesAndFruits
                 for (int i = 0; i < sqlParameters.Length; i++)
                 {
 
+                  //  sqlCommand.Parameters.AddWithValue(sqlParameters[i].ParameterName, 1);
 
-                    sqlCommand.Parameters.AddWithValue(sqlParameters[i].ParameterName, 1);
+                    sqlCommand.Parameters.AddWithValue(sqlParameters[i].ParameterName, sqlParameters[i].Value);
                 }
             }
 
@@ -236,13 +296,13 @@ namespace VegetablesAndFruits
                     }
                 }
             }
-                foreach (string[] s in data2)
-                {
-                    dataGridView1.Rows.Add(s);
-                }
-  
+            foreach (string[] s in data2)
+            {
+                dataGridView1.Rows.Add(s);
+            }
+
         }
-      
+
 
         public void InsertInDb()
         {

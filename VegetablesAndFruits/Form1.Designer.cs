@@ -29,6 +29,7 @@ namespace VegetablesAndFruits
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelDbConnect = new System.Windows.Forms.Label();
             this.checkBoxDbConnect = new System.Windows.Forms.CheckBox();
             this.textBoxShowSelect = new System.Windows.Forms.TextBox();
@@ -38,13 +39,9 @@ namespace VegetablesAndFruits
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.comboBoxParam1 = new System.Windows.Forms.ComboBox();
             this.comboBoxParam2 = new System.Windows.Forms.ComboBox();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.color = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelDbConnect
@@ -74,7 +71,7 @@ namespace VegetablesAndFruits
             this.textBoxShowSelect.Multiline = true;
             this.textBoxShowSelect.Name = "textBoxShowSelect";
             this.textBoxShowSelect.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textBoxShowSelect.Size = new System.Drawing.Size(776, 134);
+            this.textBoxShowSelect.Size = new System.Drawing.Size(776, 50);
             this.textBoxShowSelect.TabIndex = 4;
             // 
             // comboBox1
@@ -107,24 +104,18 @@ namespace VegetablesAndFruits
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.name,
-            this.Type,
-            this.color,
-            this.cal});
-            this.dataGridView1.Location = new System.Drawing.Point(16, 247);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 146);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(772, 162);
+            this.dataGridView1.Size = new System.Drawing.Size(772, 478);
             this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // comboBoxParam1
             // 
             this.comboBoxParam1.FormattingEnabled = true;
-            this.comboBoxParam1.Location = new System.Drawing.Point(33, 416);
+            this.comboBoxParam1.Location = new System.Drawing.Point(16, 630);
             this.comboBoxParam1.Name = "comboBoxParam1";
             this.comboBoxParam1.Size = new System.Drawing.Size(151, 28);
             this.comboBoxParam1.TabIndex = 9;
@@ -132,52 +123,20 @@ namespace VegetablesAndFruits
             // comboBoxParam2
             // 
             this.comboBoxParam2.FormattingEnabled = true;
-            this.comboBoxParam2.Location = new System.Drawing.Point(254, 416);
+            this.comboBoxParam2.Location = new System.Drawing.Point(173, 630);
             this.comboBoxParam2.Name = "comboBoxParam2";
             this.comboBoxParam2.Size = new System.Drawing.Size(151, 28);
             this.comboBoxParam2.TabIndex = 10;
             // 
-            // id
+            // errorProvider1
             // 
-            this.id.HeaderText = "id ";
-            this.id.MinimumWidth = 6;
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 125;
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Name";
-            this.name.MinimumWidth = 6;
-            this.name.Name = "name";
-            this.name.Width = 125;
-            // 
-            // Type
-            // 
-            this.Type.HeaderText = "Type";
-            this.Type.MinimumWidth = 6;
-            this.Type.Name = "Type";
-            this.Type.Width = 125;
-            // 
-            // color
-            // 
-            this.color.HeaderText = "Color";
-            this.color.MinimumWidth = 6;
-            this.color.Name = "color";
-            this.color.Width = 125;
-            // 
-            // cal
-            // 
-            this.cal.HeaderText = "Cal";
-            this.cal.MinimumWidth = 6;
-            this.cal.Name = "cal";
-            this.cal.Width = 125;
+            this.errorProvider1.ContainerControl = this;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1038, 534);
+            this.ClientSize = new System.Drawing.Size(939, 670);
             this.Controls.Add(this.comboBoxParam2);
             this.Controls.Add(this.comboBoxParam1);
             this.Controls.Add(this.dataGridView1);
@@ -190,6 +149,7 @@ namespace VegetablesAndFruits
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,12 +167,7 @@ namespace VegetablesAndFruits
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBoxParam1;
         private System.Windows.Forms.ComboBox comboBoxParam2;
-        private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn color;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cal;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
 
