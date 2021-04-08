@@ -15,7 +15,7 @@ namespace Repository2CRUD
     public class Repository<T> : IRepository<T> where T : new()
     {
         //protected readonly SqlConnection Connect;
-        protected readonly string TableName = $"[{typeof(T).Name}s]";
+        protected readonly string TableName = $"{typeof(T).Name}s";
         public string Id_DB { get; set; }
         public string StringConect { get; set; }
         // @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Initial Catalog=VegetablesFruits;Integrated Security=True;";
@@ -30,6 +30,7 @@ namespace Repository2CRUD
         {
             Id_DB = id_DB;
             CreateDbIfNot();
+            CreateTableIfNot();
             {
                 /*
     If(db_id(N'TestCreateDB11') IS NULL)
@@ -48,8 +49,50 @@ namespace Repository2CRUD
             StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB};Integrated Security=True;";
             Connect = new SqlConnection(StringConect);
             OpenConectDB();
+
             Connect.Close();
         }
+
+        /*
+CREATE TABLE [dbo].[Table]
+(
+[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+[Name] NVARCHAR(50) NOT NULL, 
+[Count] INT NOT NULL
+)
+*/
+        private void CreateTableIfNot()
+        {
+            StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog= {Id_DB};Integrated Security=True;";
+          //  string StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB}Integrated Security=True;";
+
+            SqlConnection Connect = new SqlConnection(StringConect);
+
+            Connect.Open();  ///////////???????????????????
+
+            //подготовить запрос insert
+            //в переменной типа string
+          
+
+            string insertString = $" USE {Id_DB} " +
+           $"if not exists(select * from sysobjects where name = '{TableName}')" +
+           $" CREATE TABLE[dbo].[{TableName}]" +
+           $" ( Id INT NOT NULL PRIMARY KEY IDENTITY," +
+           $"Name NVARCHAR(50) NOT NULL," +
+           $"Count INT NOT NULL )";
+
+
+            //создать объект command,
+            //инициализировав оба свойства
+            SqlCommand cmd = new SqlCommand(insertString, Connect);
+            //выполнить запрос, занесенный
+            //в объект command
+
+            
+            cmd.ExecuteNonQuery();///??????????????????????     
+            Connect.Close();
+        }
+
 
         public void CreateDbIfNot()
         {
