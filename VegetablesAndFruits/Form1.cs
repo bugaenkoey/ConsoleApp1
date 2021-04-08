@@ -73,8 +73,6 @@ namespace VegetablesAndFruits
             // dbConnection.ConnectionString = connectionString;
             dbConnection = new SqlConnection(connectionString);
 
-
-
         }
 
         private SelectVF[] GetArraySelect2()
@@ -114,8 +112,6 @@ GROUP BY Color;
             };
         }
 
-
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             var index = comboBox1.SelectedIndex;
@@ -150,8 +146,6 @@ GROUP BY Color;
                 MessageBox.Show("Нет связи с БД!", "Ошибка подключения", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
-
-
         }
 
         private void DialogForm(SqlParameter[] @params)
@@ -217,9 +211,6 @@ GROUP BY Color;
             {
                 MessageBox.Show("Ошибка запроса", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-
         }
 
         private void ReadData(ref SqlDataReader sqlDataReader)
@@ -244,13 +235,11 @@ GROUP BY Color;
                     }
                     else if (sqlDataReader.GetColumnSchema()[i].ColumnName == "Color")
                     {
-
                         if (int.TryParse(sqlDataReader[i].ToString(), out int resultTypeProduct))
                         {
                             data2[data2.Count - 1][i] = ((ColorProduct)resultTypeProduct).ToString();
 
                         }
-
                     }
                     else
                     {
@@ -263,7 +252,6 @@ GROUP BY Color;
             {
                 dataGridView1.Rows.Add(s);
             }
-
         }
 
         private void SetColumName(SqlDataReader sqlDataReader)
@@ -285,9 +273,6 @@ GROUP BY Color;
             //выполнить запрос, занесенный в объект command
             cmd.ExecuteNonQuery();
         }
-
-
-
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

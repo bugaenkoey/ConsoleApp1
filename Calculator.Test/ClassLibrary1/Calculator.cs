@@ -92,6 +92,9 @@ namespace CalculatorLibrary
         {
             int n = int.Parse(number);
             return n > 1000 ? 0 : n;
+
+        
+
         }
 
     }
