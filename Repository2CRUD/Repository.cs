@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Repository2CRUD
 {
@@ -16,6 +17,7 @@ namespace Repository2CRUD
     {
         //protected readonly SqlConnection Connect;
         protected readonly string TableName = $"{typeof(T).Name}s";
+
         public string Id_DB { get; set; }
         public string StringConect { get; set; }
         // @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Initial Catalog=VegetablesFruits;Integrated Security=True;";
@@ -23,29 +25,12 @@ namespace Repository2CRUD
         public SqlDataReader sqlDataReader = null;
         public SqlCommand sqlCommand = new SqlCommand();
 
-
-
-
         public Repository(string id_DB)
         {
             Id_DB = id_DB;
             CreateDbIfNot();
             CreateTableIfNot();
-            {
-                /*
-    If(db_id(N'TestCreateDB11') IS NULL)
-    begin
-    --DROP DATABASE [TestCreateDB11]
-    CREATE DATABASE [TestCreateDB11]
-    end
-    go
-    use [TestCreateDB11]
-                 * */
-                // LAPTOP-046QU23H\SQLEXPRESS
-                // If(db_id(N'DBNAME') IS NULL)
 
-            }
-            //  StringConect = @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Initial Catalog=VegetablesFruits;Integrated Security=True;";
             StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB};Integrated Security=True;";
             Connect = new SqlConnection(StringConect);
             OpenConectDB();
@@ -53,46 +38,49 @@ namespace Repository2CRUD
             Connect.Close();
         }
 
-        /*
-CREATE TABLE [dbo].[Table]
-(
-[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-[Name] NVARCHAR(50) NOT NULL, 
-[Count] INT NOT NULL
-)
-*/
+
         private void CreateTableIfNot()
         {
             StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog= {Id_DB};Integrated Security=True;";
-          //  string StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB}Integrated Security=True;";
 
             SqlConnection Connect = new SqlConnection(StringConect);
 
-            Connect.Open();  ///////////???????????????????
+            Connect.Open();
 
-            //подготовить запрос insert
-            //в переменной типа string
-          
+            /*
+                        string insertString = $" USE {Id_DB} " +
+                       $"if not exists(select * from sysobjects where name = '{TableName}')" +
+                       $" CREATE TABLE[dbo].[{TableName}]" +
+                       $" ( " +
+                       $"Id INT NOT NULL PRIMARY KEY IDENTITY," +
+                       $"Name NVARCHAR(50) NOT NULL," +
+                       $"Count INT NOT NULL )";
+                 */
+            string insertString = GererateScriptCreateTable();
 
-            string insertString = $" USE {Id_DB} " +
-           $"if not exists(select * from sysobjects where name = '{TableName}')" +
-           $" CREATE TABLE[dbo].[{TableName}]" +
-           $" ( Id INT NOT NULL PRIMARY KEY IDENTITY," +
-           $"Name NVARCHAR(50) NOT NULL," +
-           $"Count INT NOT NULL )";
-
-
-            //создать объект command,
-            //инициализировав оба свойства
             SqlCommand cmd = new SqlCommand(insertString, Connect);
-            //выполнить запрос, занесенный
-            //в объект command
 
-            
             cmd.ExecuteNonQuery();///??????????????????????     
             Connect.Close();
         }
+        private string GererateScriptCreateTable()
+        {
+            string scriptTable = $" USE {Id_DB} " +
+         $"if not exists(select * from sysobjects where name = '{TableName}')" +
+         $" CREATE TABLE[dbo].[{TableName}]" +
+         $" ( ";
+            var propertiT = typeof(T).GetProperties();
+            for (int i = 0; i < propertiT.Length; i++)
+            {
+                var typeT = TypeConvertToSQL.Convert(propertiT[i].PropertyType.ToString());
 
+                scriptTable += $"{propertiT[i].Name} {typeT} NOT NULL";
+
+                scriptTable += i + 1 < propertiT.Length ? " ," : " )";
+            }
+
+            return scriptTable;
+        }
 
         public void CreateDbIfNot()
         {
@@ -102,7 +90,7 @@ CREATE TABLE [dbo].[Table]
             Connect.Open();
             //подготовить запрос insert
             //в переменной типа string
-            //CREATE DATABASE IF NOT EXISTS MySampleDB;
+            //CREATE DATABASE IF NOT EXISTS {Id_DB};
             string insertString = $"If(db_id(N'{Id_DB}') IS NULL) CREATE DATABASE[{Id_DB}]";
 
 
@@ -130,7 +118,32 @@ CREATE TABLE [dbo].[Table]
 
         public void AddElement(T element)
         {
-            throw new NotImplementedException();
+            string StringConect = @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Integrated Security=True;";
+
+            SqlConnection Connect = new SqlConnection(StringConect);
+            Connect.Open();
+
+            //INSERT INTO tableName
+            // VALUES(value1, value2, ...);
+          /*  MyElement myElement = new MyElement();
+            myElement.Id = 8;
+            myElement.Name = "testElement";
+            myElement.Count = 88;
+*/
+            string insertString = $" USE {Id_DB} INSERT INTO {TableName} VALUES(";
+
+            var propertiT = element.GetType().GetProperties();
+
+            for (int i = 0; i < propertiT.Length; i++)
+            {
+                insertString+= $"'{ propertiT[i].GetValue(element)}'";
+                insertString += i + 1 < propertiT.Length ? " ," : " );";
+            }
+
+
+            SqlCommand cmd = new SqlCommand(insertString, Connect);
+            cmd.ExecuteNonQuery();
+            Connect.Close();
         }
 
         public void ChangeElement(T element)
@@ -138,9 +151,16 @@ CREATE TABLE [dbo].[Table]
             throw new NotImplementedException();
         }
 
-        public void DeleteElement(int id)
+        public void DeleteElement(int idDelite)
         {
-            throw new NotImplementedException();
+            string StringConect = @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Integrated Security=True;";
+
+            SqlConnection Connect = new SqlConnection(StringConect);
+            Connect.Open();
+            string insertString = $" USE {Id_DB} DELETE FROM {TableName} WHERE id = {idDelite};";
+            SqlCommand cmd = new SqlCommand(insertString, Connect);
+            cmd.ExecuteNonQuery();
+            Connect.Close();
         }
 
         public List<T> GetAllData()

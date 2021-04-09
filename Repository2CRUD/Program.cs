@@ -32,8 +32,23 @@ namespace Repository2CRUD
 
 
             //////////////////
+            MyElement myElement = new MyElement();
+            myElement.Id = 8;
+            myElement.Name = "testElement";
+            //myElement.Count = 88;
 
             Repository<MyElement> repository = new Repository<MyElement>("TestBook1");
+            repository.AddElement(new MyElement(1, "t1"));
+            repository.AddElement(new MyElement(2, "t2"));
+            repository.AddElement(new MyElement(3, "t3")); 
+            repository.AddElement(new MyElement(4, "t4"));
+            repository.AddElement(new MyElement(5, "t5"));
+            repository.AddElement(new MyElement(6, "t6"));
+            repository.AddElement(new MyElement(7, "t7"));
+            repository.AddElement(new MyElement(8, "t8"));
+            repository.AddElement(new MyElement(9, "t9"));
+
+            repository.DeleteElement(8);
             var r = repository.GetAllData();
 
             Console.Read();
