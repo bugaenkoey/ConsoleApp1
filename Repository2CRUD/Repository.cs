@@ -38,6 +38,19 @@ namespace Repository2CRUD
             Connect.Close();
         }
 
+        public Repository()
+        {
+            Id_DB = $"DB_{typeof(T).Name}"; ;
+            CreateDbIfNot();
+            CreateTableIfNot();
+
+            StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB};Integrated Security=True;";
+            Connect = new SqlConnection(StringConect);
+            OpenConectDB();
+
+            Connect.Close();
+        }
+
 
         private void CreateTableIfNot()
         {
@@ -47,7 +60,7 @@ namespace Repository2CRUD
 
             Connect.Open();
 
-            /*
+            { /*
                         string insertString = $" USE {Id_DB} " +
                        $"if not exists(select * from sysobjects where name = '{TableName}')" +
                        $" CREATE TABLE[dbo].[{TableName}]" +
@@ -56,6 +69,8 @@ namespace Repository2CRUD
                        $"Name NVARCHAR(50) NOT NULL," +
                        $"Count INT NOT NULL )";
                  */
+            }
+
             string insertString = GererateScriptCreateTable();
 
             SqlCommand cmd = new SqlCommand(insertString, Connect);
@@ -75,7 +90,7 @@ namespace Repository2CRUD
                 var typeT = TypeConvertToSQL.Convert(propertiT[i].PropertyType.ToString());
 
                 scriptTable += $"{propertiT[i].Name} {typeT} NOT NULL";
-
+                scriptTable += propertiT[i].Name == "Id" ? $" PRIMARY KEY IDENTITY" : "";
                 scriptTable += i + 1 < propertiT.Length ? " ," : " )";
             }
 
@@ -134,7 +149,7 @@ namespace Repository2CRUD
 
             var propertiT = element.GetType().GetProperties();
 
-            for (int i = 0; i < propertiT.Length; i++)
+            for (int i = 1; i < propertiT.Length; i++)
             {
                 insertString+= $"'{ propertiT[i].GetValue(element)}'";
                 insertString += i + 1 < propertiT.Length ? " ," : " );";
@@ -157,7 +172,7 @@ namespace Repository2CRUD
 
             SqlConnection Connect = new SqlConnection(StringConect);
             Connect.Open();
-            string insertString = $" USE {Id_DB} DELETE FROM {TableName} WHERE id = {idDelite};";
+            string insertString = $" USE {Id_DB} DELETE FROM {TableName } WHERE id = {idDelite };";
             SqlCommand cmd = new SqlCommand(insertString, Connect);
             cmd.ExecuteNonQuery();
             Connect.Close();

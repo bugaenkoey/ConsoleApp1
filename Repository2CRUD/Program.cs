@@ -48,9 +48,15 @@ namespace Repository2CRUD
             repository.AddElement(new MyElement(8, "t8"));
             repository.AddElement(new MyElement(9, "t9"));
 
+            Repository<Book> repository2 = new Repository<Book>();
+            repository2.AddElement(new Book("Book11","Avtor 11",111,1991));
+            repository2.AddElement(new Book("Book21", "Avtor 11", 101, 1918));
+           // repository2.AddElement(new Book());
+         //   repository2.AddElement(new Book());
+
             repository.DeleteElement(8);
             var r = repository.GetAllData();
-
+            var r2 = repository2.GetAllData();
             Console.Read();
         }
     }
