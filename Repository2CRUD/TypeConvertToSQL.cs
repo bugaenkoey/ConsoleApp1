@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Repository2CRUD
+﻿namespace Repository2CRUD
 {
     public static class TypeConvertToSQL
     {
        public static string Convert( string type)
         {
-            string typeToString= string.Empty;
+            /*
             switch (type)
             {
                 case "System.Int32":
@@ -18,11 +14,15 @@ namespace Repository2CRUD
                     return "NVARCHAR(50)";
                     
                 default:
-                    break;
+                    return string.Empty;
             }
-
-
-            return typeToString;
+             */
+            return type switch
+            {
+                "System.Int32" => "INT",
+                "System.String" => "NVARCHAR(50)",
+                _ => string.Empty,
+            };
         }
     }
 }

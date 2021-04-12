@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Repository2CRUD
 {
@@ -17,10 +15,10 @@ namespace Repository2CRUD
      */
     interface IRepository<T>
     {
-        List<T> GetAllData();
+        List<T> GetAll();
         T GetElementById(int id);
-        void AddElement(T element);
+        void Add(T element);
         void ChangeElement(T element);
-        void DeleteElement(int id);
+        void DeleteById(int id);
     }
 }

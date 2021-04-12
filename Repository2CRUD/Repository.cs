@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace Repository2CRUD
 {
@@ -15,39 +14,39 @@ namespace Repository2CRUD
     */
     public class Repository<T> : IRepository<T> where T : new()
     {
-        //protected readonly SqlConnection Connect;
+        
         protected readonly string TableName = $"{typeof(T).Name}s";
 
-        public string Id_DB { get; set; }
+        public string Id_DB { get; set; } = $"DB_{typeof(T).Name}";
         public string StringConect { get; set; }
         // @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Initial Catalog=VegetablesFruits;Integrated Security=True;";
-        private DbConnection Connect = null;
+        private readonly DbConnection Connect = null;
         public SqlDataReader sqlDataReader = null;
-        public SqlCommand sqlCommand = new SqlCommand();
 
-        public Repository(string id_DB)
+
+        public Repository(string id_DB): this ()
         {
             Id_DB = id_DB;
-            CreateDbIfNot();
+          /*  CreateDbIfNot();
             CreateTableIfNot();
 
             StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB};Integrated Security=True;";
             Connect = new SqlConnection(StringConect);
-            OpenConectDB();
 
-            Connect.Close();
+            OpenConectDB();
+            Connect.Close();*/
         }
 
         public Repository()
         {
-            Id_DB = $"DB_{typeof(T).Name}"; ;
+          //  Id_DB = $"DB_{typeof(T).Name}";
             CreateDbIfNot();
             CreateTableIfNot();
 
             StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB};Integrated Security=True;";
             Connect = new SqlConnection(StringConect);
-            OpenConectDB();
 
+            OpenConectDB();
             Connect.Close();
         }
 
@@ -131,7 +130,7 @@ namespace Repository2CRUD
             }
         }
 
-        public void AddElement(T element)
+        public void Add(T element)
         {
             string StringConect = @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Integrated Security=True;";
 
@@ -140,22 +139,20 @@ namespace Repository2CRUD
 
             //INSERT INTO tableName
             // VALUES(value1, value2, ...);
-          /*  MyElement myElement = new MyElement();
-            myElement.Id = 8;
-            myElement.Name = "testElement";
-            myElement.Count = 88;
-*/
+            /*  MyElement myElement = new MyElement();
+              myElement.Id = 8;
+              myElement.Name = "testElement";
+              myElement.Count = 88;
+  */
             string insertString = $" USE {Id_DB} INSERT INTO {TableName} VALUES(";
 
             var propertiT = element.GetType().GetProperties();
 
             for (int i = 1; i < propertiT.Length; i++)
             {
-                insertString+= $"'{ propertiT[i].GetValue(element)}'";
+                insertString += $"'{ propertiT[i].GetValue(element)}'";
                 insertString += i + 1 < propertiT.Length ? " ," : " );";
             }
-
-
             SqlCommand cmd = new SqlCommand(insertString, Connect);
             cmd.ExecuteNonQuery();
             Connect.Close();
@@ -166,7 +163,7 @@ namespace Repository2CRUD
             throw new NotImplementedException();
         }
 
-        public void DeleteElement(int idDelite)
+        public void DeleteById(int idDelite)
         {
             string StringConect = @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Integrated Security=True;";
 
@@ -178,23 +175,24 @@ namespace Repository2CRUD
             Connect.Close();
         }
 
-        public List<T> GetAllData()
+        public List<T> GetAll()
         {
-            OpenConectDB();
             List<T> listElement = new List<T>();
-            // List<string[]> listElement = new List<string[]>();
-
+           
             string select = $"select * from {TableName}";
-            sqlCommand = new SqlCommand(select, (SqlConnection)Connect);
+            SqlCommand sqlCommand = new SqlCommand(select, (SqlConnection)Connect);
 
             try
             {
+            OpenConectDB();
                 sqlDataReader = sqlCommand.ExecuteReader();
 
                 var schema = sqlDataReader.GetColumnSchema();
+
                 while (sqlDataReader.Read())
                 {
-                    listElement.Add(Create(schema, sqlDataReader));
+                    var elementT = Create(schema, sqlDataReader);
+                    listElement.Add(elementT);
                 }
                 Console.WriteLine("Элементы получены");
 
@@ -211,20 +209,51 @@ namespace Repository2CRUD
             return listElement;
 
         }
-
+ 
         private T Create(ReadOnlyCollection<DbColumn> schema, SqlDataReader sqlDataReader)
         {
             T element = new T();
+            var propertiT = element.GetType().GetProperties();
 
-
+            for (int i = 0; i < schema.Count; i++)
+            {
+                var value = sqlDataReader[i];
+                propertiT[i].SetValue(element, value);
+            }
             return element;
         }
 
         public T GetElementById(int id)
         {
-            throw new NotImplementedException();
+            T element = new T();
+
+            string select = $"select * from {TableName} where id= {id}";
+            SqlCommand sqlCommand = new SqlCommand(select, (SqlConnection)Connect);
+
+            try
+            {
+            OpenConectDB();
+                sqlDataReader = sqlCommand.ExecuteReader();
+
+                var schema = sqlDataReader.GetColumnSchema();
+
+                while (sqlDataReader.Read())
+                {
+                    element= Create(schema, sqlDataReader);
+                }
+                Console.WriteLine("Элемент получен");
+
+                sqlDataReader.Close();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Недопустимое имя объекта {TableName} ");
+            }
+            finally
+            {
+                Connect.Close();
+            }
+            return element;
         }
-
-
     }
 }

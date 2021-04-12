@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Repository2CRUD
+﻿namespace Repository2CRUD
 {
     public class MyElement :IElementId
     {
@@ -18,25 +14,29 @@ CREATE TABLE [dbo].[Table]
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public static int Count { get; set; }
+        public int Count { get; set; }
 
         public MyElement(int Id_, string Name_, int Count_)
         {
             this.Id = Id_;
             this.Name = Name_;
-          //  this.Count = Count_;
+            this.Count = Count_;
         }
         public MyElement(int Id_, string Name_)
         {
             this.Id = Id_;
             this.Name = Name_;
-            Count++;
             Name = $"MyElement {Count}";
 
         }
 
         public MyElement()
         {
+        }
+
+        public override string ToString()
+        {
+            return $"Id = {Id}\tName = {Name}\tCount = {Count}\n";
         }
     }
 }

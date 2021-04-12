@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Repository2CRUD
 {
@@ -8,7 +6,7 @@ namespace Repository2CRUD
     {
         public Book()
         {
-            AllBook =$"Всего книг {++Count}";
+            RandomBook();
         }
 
         public Book(string nameBook, string autor, int pages, int year)
@@ -26,6 +24,29 @@ namespace Repository2CRUD
         public int Pages { get; set; }
         public int Year { get; set; }
         public static int Count { get; set; }
-        public string AllBook { get; set; }
+       
+
+        public override string ToString()
+        {
+            return $"Id = {Id}\tNameBook = {NameBook}\tAutor = {Autor}\tPages{Pages}\tYear = {Year}\tCount = {Count}\n";
+        }
+        public void RandomBook()
+        {
+            Random random = new Random();
+            Pages = random.Next(10, 1000);
+            Year = random.Next(1900, DateTime.Now.Year);
+            Count = random.Next(0, 10);
+            for (int i = 0; i < random.Next(5, 20); i++)
+            {
+                NameBook += $"{(char)random.Next('A', 'z' + 1)}";
+
+            }
+            for (int i = 0; i < random.Next(5, 20); i++)
+            {
+                Autor += $"{(char)random.Next('A', 'z' + 1)}";
+
+            }
+
+        }
     }
 }

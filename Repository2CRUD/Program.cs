@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace Repository2CRUD
 {
@@ -26,38 +26,39 @@ namespace Repository2CRUD
 */
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            // Repository<MyElement> repository = new Repository<MyElement>("Test");
 
+            Repository<Book> repositoryBook = new Repository<Book>();
 
+            CreateElement(repositoryBook);
 
-            //////////////////
-            MyElement myElement = new MyElement();
-            myElement.Id = 8;
-            myElement.Name = "testElement";
-            //myElement.Count = 88;
+            repositoryBook.DeleteById(6);
 
-            Repository<MyElement> repository = new Repository<MyElement>("TestBook1");
-            repository.AddElement(new MyElement(1, "t1"));
-            repository.AddElement(new MyElement(2, "t2"));
-            repository.AddElement(new MyElement(3, "t3")); 
-            repository.AddElement(new MyElement(4, "t4"));
-            repository.AddElement(new MyElement(5, "t5"));
-            repository.AddElement(new MyElement(6, "t6"));
-            repository.AddElement(new MyElement(7, "t7"));
-            repository.AddElement(new MyElement(8, "t8"));
-            repository.AddElement(new MyElement(9, "t9"));
+            ShowElements(repositoryBook.GetAll());
 
-            Repository<Book> repository2 = new Repository<Book>();
-            repository2.AddElement(new Book("Book11","Avtor 11",111,1991));
-            repository2.AddElement(new Book("Book21", "Avtor 11", 101, 1918));
-           // repository2.AddElement(new Book());
-         //   repository2.AddElement(new Book());
-
-            repository.DeleteElement(8);
-            var r = repository.GetAllData();
-            var r2 = repository2.GetAllData();
+            Console.WriteLine(repositoryBook.GetElementById(6).ToString());
             Console.Read();
+        }
+
+        private static void CreateElement<T>(Repository<T> repository) where T : new()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                repository.Add(new T());
+                // book.RandomBook();
+            }
+        }
+
+    
+
+        private static void ShowElements(List<Book> elements)
+        {
+            foreach (var item in elements)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
     }
 }
