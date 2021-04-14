@@ -9,22 +9,23 @@ namespace Repository2CRUD
             RandomBook();
         }
 
-        public Book(string nameBook, string autor, int pages, int year)
+        public Book(string nameBook, string autor, int pages, int year, int count)
         {
             NameBook = nameBook;
             Autor = autor;
             Pages = pages;
             Year = year;
+            Count = count;
         }
 
-        public int Id { get ; set ; }
-         
+        public int Id { get; set; }
+
         public string NameBook { get; set; }
         public string Autor { get; set; }
         public int Pages { get; set; }
         public int Year { get; set; }
-        public static int Count { get; set; }
-       
+        public int Count { get; set; }
+
 
         public override string ToString()
         {

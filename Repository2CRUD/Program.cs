@@ -33,12 +33,18 @@ namespace Repository2CRUD
             Repository<Book> repositoryBook = new Repository<Book>();
 
             CreateElement(repositoryBook);
-
-            repositoryBook.DeleteById(6);
+            int id = 6;
+            repositoryBook.DeleteById(id);
 
             ShowElements(repositoryBook.GetAll());
 
-            Console.WriteLine(repositoryBook.GetElementById(6).ToString());
+            var book = new Book("NewBook5", "NewAutor5", 555, 5555, 55);
+            id = 5;
+            repositoryBook.ChangeElement(id, book);
+
+            ShowElements(repositoryBook.GetAll());
+
+            Console.WriteLine(repositoryBook.GetElementById(id).ToString());
             Console.Read();
         }
 
@@ -51,7 +57,7 @@ namespace Repository2CRUD
             }
         }
 
-    
+
 
         private static void ShowElements(List<Book> elements)
         {

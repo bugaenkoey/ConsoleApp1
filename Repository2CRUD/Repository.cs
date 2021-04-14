@@ -14,7 +14,7 @@ namespace Repository2CRUD
     */
     public class Repository<T> : IRepository<T> where T : new()
     {
-        
+
         protected readonly string TableName = $"{typeof(T).Name}s";
 
         public string Id_DB { get; set; } = $"DB_{typeof(T).Name}";
@@ -24,22 +24,22 @@ namespace Repository2CRUD
         public SqlDataReader sqlDataReader = null;
 
 
-        public Repository(string id_DB): this ()
+        public Repository(string id_DB) : this()
         {
             Id_DB = id_DB;
-          /*  CreateDbIfNot();
-            CreateTableIfNot();
+            /*  CreateDbIfNot();
+              CreateTableIfNot();
 
-            StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB};Integrated Security=True;";
-            Connect = new SqlConnection(StringConect);
+              StringConect = $"Data Source=LAPTOP-046QU23H\\SQLEXPRESS;Initial Catalog={Id_DB};Integrated Security=True;";
+              Connect = new SqlConnection(StringConect);
 
-            OpenConectDB();
-            Connect.Close();*/
+              OpenConectDB();
+              Connect.Close();*/
         }
 
         public Repository()
         {
-          //  Id_DB = $"DB_{typeof(T).Name}";
+            //  Id_DB = $"DB_{typeof(T).Name}";
             CreateDbIfNot();
             CreateTableIfNot();
 
@@ -110,6 +110,7 @@ namespace Repository2CRUD
 
             //создать объект command,
             //инициализировав оба свойства
+            //"If(db_id(N'DB_Book') IS NULL) CREATE DATABASE[DB_Book]"
             SqlCommand cmd = new SqlCommand(insertString, Connect);
             //выполнить запрос, занесенный
             //в объект command
@@ -137,13 +138,8 @@ namespace Repository2CRUD
             SqlConnection Connect = new SqlConnection(StringConect);
             Connect.Open();
 
-            //INSERT INTO tableName
-            // VALUES(value1, value2, ...);
-            /*  MyElement myElement = new MyElement();
-              myElement.Id = 8;
-              myElement.Name = "testElement";
-              myElement.Count = 88;
-  */
+            //" USE DB_Book INSERT INTO Books VALUES('xTbcFeSjOGKf' ,'NTAwBJwH' ,'847' ,'1996' ,'4' );"
+
             string insertString = $" USE {Id_DB} INSERT INTO {TableName} VALUES(";
 
             var propertiT = element.GetType().GetProperties();
@@ -157,10 +153,30 @@ namespace Repository2CRUD
             cmd.ExecuteNonQuery();
             Connect.Close();
         }
-
-        public void ChangeElement(T element)
+        public void ChangeElement(int id, T element)
         {
-            throw new NotImplementedException();
+            string StringConect = @"Data Source=LAPTOP-046QU23H\SQLEXPRESS;Integrated Security=True;";
+
+
+
+            SqlConnection Connect = new SqlConnection(StringConect);
+            Connect.Open();
+
+            string insertString = $" USE {Id_DB} UPDATE {TableName} SET ";
+
+            var propertiT = element.GetType().GetProperties();
+
+            for (int i = 1; i < propertiT.Length; i++)
+            {
+                insertString += $"{ propertiT[i].Name} = '{ propertiT[i].GetValue(element)}'";
+                insertString += i + 1 < propertiT.Length ? " ," : $" WHERE id = {id};";
+            }
+
+            //" USE DB_Book UPDATE Books SET NameBook = 'NewBook5' ,Autor = 'NewAutor5' ,Pages = '555' ,Year = '5555' ,Count = '55' WHERE id = 5;"
+
+            SqlCommand cmd = new SqlCommand(insertString, Connect);
+            cmd.ExecuteNonQuery();
+            Connect.Close();
         }
 
         public void DeleteById(int idDelite)
@@ -170,6 +186,9 @@ namespace Repository2CRUD
             SqlConnection Connect = new SqlConnection(StringConect);
             Connect.Open();
             string insertString = $" USE {Id_DB} DELETE FROM {TableName } WHERE id = {idDelite };";
+
+            //" USE DB_Book DELETE FROM Books WHERE id = 6;"
+
             SqlCommand cmd = new SqlCommand(insertString, Connect);
             cmd.ExecuteNonQuery();
             Connect.Close();
@@ -178,13 +197,16 @@ namespace Repository2CRUD
         public List<T> GetAll()
         {
             List<T> listElement = new List<T>();
-           
+
             string select = $"select * from {TableName}";
+
+            //"select * from Books"
+
             SqlCommand sqlCommand = new SqlCommand(select, (SqlConnection)Connect);
 
             try
             {
-            OpenConectDB();
+                OpenConectDB();
                 sqlDataReader = sqlCommand.ExecuteReader();
 
                 var schema = sqlDataReader.GetColumnSchema();
@@ -209,7 +231,7 @@ namespace Repository2CRUD
             return listElement;
 
         }
- 
+
         private T Create(ReadOnlyCollection<DbColumn> schema, SqlDataReader sqlDataReader)
         {
             T element = new T();
@@ -228,18 +250,21 @@ namespace Repository2CRUD
             T element = new T();
 
             string select = $"select * from {TableName} where id= {id}";
+
+            //"select * from Books where id= 5"
+
             SqlCommand sqlCommand = new SqlCommand(select, (SqlConnection)Connect);
 
             try
             {
-            OpenConectDB();
+                OpenConectDB();
                 sqlDataReader = sqlCommand.ExecuteReader();
 
                 var schema = sqlDataReader.GetColumnSchema();
 
                 while (sqlDataReader.Read())
                 {
-                    element= Create(schema, sqlDataReader);
+                    element = Create(schema, sqlDataReader);
                 }
                 Console.WriteLine("Элемент получен");
 

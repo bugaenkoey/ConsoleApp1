@@ -18,7 +18,7 @@ namespace Repository2CRUD
         List<T> GetAll();
         T GetElementById(int id);
         void Add(T element);
-        void ChangeElement(T element);
+        void ChangeElement(int id,T element);
         void DeleteById(int id);
     }
 }
