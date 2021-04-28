@@ -33,7 +33,6 @@ namespace ProductStorage
             this.checkBoxOnDB = new System.Windows.Forms.CheckBox();
             this.comboBoxQueries = new System.Windows.Forms.ComboBox();
             this.DatabaseState = new System.Windows.Forms.Label();
-            this.labelShowe = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,21 +75,11 @@ namespace ProductStorage
             this.DatabaseState.TabIndex = 3;
             this.DatabaseState.Text = "База данных отключена";
             // 
-            // labelShowe
-            // 
-            this.labelShowe.AutoSize = true;
-            this.labelShowe.Location = new System.Drawing.Point(580, 9);
-            this.labelShowe.Name = "labelShowe";
-            this.labelShowe.Size = new System.Drawing.Size(42, 20);
-            this.labelShowe.TabIndex = 4;
-            this.labelShowe.Text = "label";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(798, 450);
-            this.Controls.Add(this.labelShowe);
             this.Controls.Add(this.DatabaseState);
             this.Controls.Add(this.comboBoxQueries);
             this.Controls.Add(this.checkBoxOnDB);
@@ -109,7 +98,6 @@ namespace ProductStorage
         private System.Windows.Forms.CheckBox checkBoxOnDB;
         private System.Windows.Forms.ComboBox comboBoxQueries;
         private System.Windows.Forms.Label DatabaseState;
-        private System.Windows.Forms.Label labelShowe;
     }
 }
 

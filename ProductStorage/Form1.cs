@@ -70,17 +70,18 @@ namespace ProductStorage
             string fromProducts = " from Products ";
             string fromProviders = " from Providers ";
             databaseQueries = new DatabaseQueries[]{
-                new DatabaseQueries("■ Отображение всей информации о товаре;", $"select * {fromProducts} "/*, new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }*/),
-                new DatabaseQueries("■ Отображение всех типов товаров;", $"select DISTINCT Type {fromProducts}"/*, new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }*/),
-                new DatabaseQueries("■ Отображение всех поставщиков;", $"select DISTINCT Name {fromProviders}"/*, new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }*/),
-                new DatabaseQueries("■ Показать товар с максимальным количеством;", $"select * {fromProducts} WHERE Count = ( select  MAX(Count)  {fromProducts} )"/*, new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }*/),
-                new DatabaseQueries("■ Показать товар с минимальным количеством;", $"select * {fromProducts} WHERE Count = ( select  MIN(Count)  {fromProducts} )"/*, new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }*/),
-                new DatabaseQueries("■ Показать товар с минимальной себестоимостью;", $"select * {fromProducts} WHERE Price = ( select  MIN(Price)  {fromProducts} )"/*, new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }*/),
-                new DatabaseQueries("■ Показать товар с максимальной себестоимостью.", $"select * {fromProducts} WHERE Price = ( select  MAX(Price)  {fromProducts} )"/*, new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }*/),
-                new DatabaseQueries("■ Показать товары, заданной категории;", "", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }),
-                new DatabaseQueries("■ Показать товары, заданного поставщика;", "", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }),
-                new DatabaseQueries("■ Показать самый старый товар на складе;", "", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }),
-                new DatabaseQueries("■ Показать среднее количество товаров по каждому типу товара.", "", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) })
+                new DatabaseQueries("■ Отображение всей информации о товаре;", $"select * {fromProducts} "),
+                new DatabaseQueries("■ Отображение всех типов товаров;", $"select DISTINCT Type {fromProducts}"),
+                new DatabaseQueries("■ Отображение всех поставщиков;", $"select DISTINCT Name {fromProviders}"),
+                new DatabaseQueries("■ Показать товар с максимальным количеством;", $"select * {fromProducts} WHERE Count = ( select  MAX(Count)  {fromProducts} )"),
+                new DatabaseQueries("■ Показать товар с минимальным количеством;", $"select * {fromProducts} WHERE Count = ( select  MIN(Count)  {fromProducts} )"),
+                new DatabaseQueries("■ Показать товар с минимальной себестоимостью;", $"select * {fromProducts} WHERE Price = ( select  MIN(Price)  {fromProducts} )"),
+                new DatabaseQueries("■ Показать товар с максимальной себестоимостью.", $"select * {fromProducts} WHERE Price = ( select  MAX(Price)  {fromProducts} )"),
+
+                new DatabaseQueries("■ Показать товары, заданной категории;", $"select * {fromProducts} WHERE Type ='Type1'", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }),
+                new DatabaseQueries("■ Показать товары, заданного поставщика;", $"select * {fromProducts} WHERE ProviderId = 1", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }),
+                new DatabaseQueries("■ Показать самый старый товар на складе;",  $"select * {fromProducts} WHERE DateProvide = ( select  MIN(DateProvide)  {fromProducts} )"),
+                new DatabaseQueries("■ Показать среднее количество товаров по каждому типу товара.", $"select * {fromProducts} WHERE Count = ( select  AVG(Count)  {fromProducts} )")
 
             };
             foreach (var item in databaseQueries)
