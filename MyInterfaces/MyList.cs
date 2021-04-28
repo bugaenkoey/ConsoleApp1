@@ -136,18 +136,18 @@ namespace MyInterfaces
             return GetEnumerator();
         }
 
-        private class Enumerator<T> : IEnumerator<T>
+        private class Enumerator<T2> : IEnumerator<T2>
         {
-            private MyList<T> myLists = null;
-            private Node<T> currentNode = null;
+            private MyList<T2> myLists = null;
+            private Node<T2> currentNode = null;
             public int index = -1;
 
-            public Enumerator(MyList<T> myLists)
+            public Enumerator(MyList<T2> myLists)
             {
                 this.myLists = myLists;
             }
 
-            public T Current => currentNode.Value;
+            public T2 Current => currentNode.Value;
 
             object IEnumerator.Current => throw new System.NotImplementedException();
 

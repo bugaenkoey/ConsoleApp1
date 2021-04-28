@@ -2,7 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
+            /*вставка, удаление, добавление объектов, элементов по индексу
+             * IList Определяет коллекцию, доступ к которой можно получить 
+             * с помощью индексатора
+             *IEnumerable Определяет метод GetEnumerator(), предоставляющий 
+             *перечислитель для любого класса коллекции
+             *IEnumerator Предоставляет методы, позволяющие получать содержимое
+             *коллекции по очереди
+             *
+             **/
+
 namespace MyInterfaces
+
 /**
  * 
  * 
@@ -56,15 +67,6 @@ namespace System.Collections
         {
          //   List<int> list = new List<int>();
             Console.WriteLine("Реализация интерфейса Ilist");
-            /*вставка, удаление, добавление объектов, элементов по индексу
-             * IList Определяет коллекцию, доступ к которой можно получить 
-             * с помощью индексатора
-             *IEnumerable Определяет метод GetEnumerator(), предоставляющий 
-             *перечислитель для любого класса коллекции
-             *IEnumerator Предоставляет методы, позволяющие получать содержимое
-             *коллекции по очереди
-             *
-             **/
 
             int[] mas = new[]{ 1,2,3,4,5,6};
 
@@ -74,6 +76,11 @@ namespace System.Collections
             myList.Add(12);
             myList.Add(13);
             myList.Add(14);
+
+            foreach (var item in myList)
+            {
+                Console.WriteLine(item.ToString());
+            }
 
             myList.CopyTo(mas,4);
 
