@@ -23,6 +23,7 @@ namespace ProductStorage
         public string Id_DB { get; set; } = "";
         private DatabaseQueries[] databaseQueries = null;
         // public Database database;
+        public SqlParameter paramCarent = new SqlParameter();
         public Form1()
         {
 
@@ -78,8 +79,8 @@ namespace ProductStorage
                 new DatabaseQueries("■ Показать товар с минимальной себестоимостью;", $"select * {fromProducts} WHERE Price = ( select  MIN(Price)  {fromProducts} )"),
                 new DatabaseQueries("■ Показать товар с максимальной себестоимостью.", $"select * {fromProducts} WHERE Price = ( select  MAX(Price)  {fromProducts} )"),
 
-                new DatabaseQueries("■ Показать товары, заданной категории;", $"select * {fromProducts} WHERE Type ='Type1'", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }),
-                new DatabaseQueries("■ Показать товары, заданного поставщика;", $"select * {fromProducts} WHERE ProviderId = 1", new SqlParameter[] { new SqlParameter("", SqlDbType.Int) }),
+                new DatabaseQueries("■ Показать товары, заданной категории;", $"select * {fromProducts} WHERE Type = @Type1", new SqlParameter[] { new SqlParameter("@Type1", SqlDbType.NVarChar) }),
+                new DatabaseQueries("■ Показать товары, заданного поставщика;", $"select * {fromProducts} WHERE ProviderId = ( select id {fromProviders}  WHERE Name = @Name1)", new SqlParameter[] { new SqlParameter("@Name1", SqlDbType.NVarChar) }),
                 new DatabaseQueries("■ Показать самый старый товар на складе;",  $"select * {fromProducts} WHERE DateProvide = ( select  MIN(DateProvide)  {fromProducts} )"),
                 new DatabaseQueries("■ Показать среднее количество товаров по каждому типу товара.", $"select * {fromProducts} WHERE Count = ( select  AVG(Count)  {fromProducts} )")
 
@@ -114,6 +115,7 @@ namespace ProductStorage
             }
         }
 
+
         private void comboBoxQueries_SelectedIndexChanged(object c, EventArgs e)
         {
 
@@ -125,51 +127,55 @@ namespace ProductStorage
 
             if (Connect.State == ConnectionState.Open)
             {
+                SqlCommand command = new SqlCommand(q.Queri, Connect);
 
-                if (databaseQueries[index].sqlParameters != null)
+                if (q.sqlParameters != null)
                 {
 
-                    //  DialogForm(selectesVF[index].Params);
-                    FormInputParameter FormDialog = new FormInputParameter(databaseQueries[index].sqlParameters);
+                    if (q.sqlParameters[0].SqlDbType == SqlDbType.NVarChar)
+                    {
 
-                    FormDialog.ShowDialog();
 
+                        FormInputStringParameter FormDialog = new FormInputStringParameter();
+
+                        FormDialog.ShowDialog();
+
+                        q.sqlParameters[0].Value = FormDialog.GetParam();
+                        command.Parameters.AddWithValue(q.sqlParameters[0].ParameterName, q.sqlParameters[0].Value);
+
+                    }
                 }
-              
 
-              //  ShowSelect(q.queri, databaseQueries[index].sqlParameters);
-
-            SqlCommand command = new SqlCommand(q.queri, Connect);
+            
 
 
 
-            SqlDataReader sqlDataReader = command.ExecuteReader();
-            var schema = sqlDataReader.GetColumnSchema();
+                SqlDataReader sqlDataReader = command.ExecuteReader();
 
 
-            dataGridView1.Columns.Clear();
+                dataGridView1.Columns.Clear();
 
-            foreach (var item in sqlDataReader.GetColumnSchema())
-            {
-                dataGridView1.Columns.Add(item.ColumnName, item.ColumnName);
-            }
-
-
-            while (sqlDataReader.Read()) // построчно считываем данные
-            {
-
-                int readCount = sqlDataReader.GetColumnSchema().Count;
-                List<object> row = new List<object>();
-                for (int i = 0; i < readCount; i++)
+                foreach (var item in sqlDataReader.GetColumnSchema())
                 {
-                    row.Add(sqlDataReader[i]);
+                    dataGridView1.Columns.Add(item.ColumnName, item.ColumnName);
                 }
 
-                dataGridView1.Rows.Add(row.ToArray());
 
-            }
+                while (sqlDataReader.Read()) // построчно считываем данные
+                {
 
-            sqlDataReader.Close();
+                    int readCount = sqlDataReader.GetColumnSchema().Count;
+                    List<object> row = new List<object>();
+                    for (int i = 0; i < readCount; i++)
+                    {
+                        row.Add(sqlDataReader[i]);
+                    }
+
+                    dataGridView1.Rows.Add(row.ToArray());
+
+                }
+
+                sqlDataReader.Close();
 
             }
             else

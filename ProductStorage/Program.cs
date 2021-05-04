@@ -44,6 +44,8 @@ namespace ProductStorage
      */
     static class Program
     {
+        public static Form1 f1 = new Form1();
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -54,7 +56,9 @@ namespace ProductStorage
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+           
+            Application.Run(f1);
+            // Application.Run(new Form1());
         }
     }
 }
