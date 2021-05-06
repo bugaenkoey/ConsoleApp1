@@ -82,7 +82,8 @@ namespace ProductStorage
                 new DatabaseQueries("■ Показать товары, заданной категории;", $"select * {fromProducts} WHERE Type = @Type1", new SqlParameter[] { new SqlParameter("@Type1", SqlDbType.NVarChar) }),
                 new DatabaseQueries("■ Показать товары, заданного поставщика;", $"select * {fromProducts} WHERE ProviderId = ( select id {fromProviders}  WHERE Name = @Name1)", new SqlParameter[] { new SqlParameter("@Name1", SqlDbType.NVarChar) }),
                 new DatabaseQueries("■ Показать самый старый товар на складе;",  $"select * {fromProducts} WHERE DateProvide = ( select  MIN(DateProvide)  {fromProducts} )"),
-                new DatabaseQueries("■ Показать среднее количество товаров по каждому типу товара.", $"select * {fromProducts} WHERE Count = ( select  AVG(Count)  {fromProducts} )")
+                //select Distinct Type,AVG(Count)  from Products GROUP BY Type;
+                new DatabaseQueries("■ Показать среднее количество товаров по каждому типу товара.", $"select Distinct Type,AVG(Count)  {fromProducts} GROUP BY Type ")
 
             };
             foreach (var item in databaseQueries)
