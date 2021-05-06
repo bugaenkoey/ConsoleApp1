@@ -44,7 +44,7 @@ namespace ProductStorage
      */
     static class Program
     {
-        public static Form1 f1 = new Form1();
+        public static Form1 form1 = new Form1();
 
         /// <summary>
         ///  The main entry point for the application.
@@ -57,7 +57,7 @@ namespace ProductStorage
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            
-            Application.Run(f1);
+            Application.Run(form1);
             // Application.Run(new Form1());
         }
     }
